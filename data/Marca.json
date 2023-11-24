@@ -1,0 +1,72 @@
+{
+    "controlador.TDA.listas.LinkedList": {
+        "head": {
+            "data": {
+                "@class": "modelo.Marca",
+                "id": 1,
+                "nombre": "Honda",
+                "estado": true
+            },
+            "next": {
+                "data": {
+                    "@class": "modelo.Marca",
+                    "id": 2,
+                    "nombre": "Toyota",
+                    "estado": true
+                },
+                "next": {
+                    "data": {
+                        "@class": "modelo.Marca",
+                        "id": 3,
+                        "nombre": "Chevrolet",
+                        "estado": true
+                    },
+                    "next": {
+                        "data": {
+                            "@class": "modelo.Marca",
+                            "id": 4,
+                            "nombre": "Ford",
+                            "estado": true
+                        },
+                        "next": {
+                            "data": {
+                                "@class": "modelo.Marca",
+                                "id": 5,
+                                "nombre": "Hyundai",
+                                "estado": true
+                            },
+                            "next": {
+                                "data": {
+                                    "@class": "modelo.Marca",
+                                    "id": 6,
+                                    "nombre": "Kia",
+                                    "estado": true
+                                },
+                                "next": {
+                                    "data": {
+                                        "@class": "modelo.Marca",
+                                        "id": 7,
+                                        "nombre": "Mercedes",
+                                        "estado": true
+                                    },
+                                    "next": {
+                                        "data": {
+                                            "@class": "modelo.Marca",
+                                            "id": 8,
+                                            "nombre": "Nissan",
+                                            "estado": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/head\/next\/next\/next\/next\/next\/next\/next"
+        },
+        "size": 8
+    }
+}

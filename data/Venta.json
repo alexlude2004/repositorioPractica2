@@ -1,0 +1,18 @@
+{
+    "controlador.TDA.listas.LinkedList": {
+        "head": {
+            "data": {
+                "@class": "modelo.Venta",
+                "id": 1,
+                "fecha": "2023-11-24 15:07:27.623 UTC",
+                "nro_venta": "0000000001",
+                "id_auto": 1,
+                "id_vendedor": 1
+            }
+        },
+        "last": {
+            "@reference": "..\/head"
+        },
+        "size": 1
+    }
+}
