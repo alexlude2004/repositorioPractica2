@@ -50,7 +50,7 @@ public class ModeloTablaVendedorListas extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "DNI";
+                return "Dni";
             case 1:
                 return "Nombres";
             case 2:

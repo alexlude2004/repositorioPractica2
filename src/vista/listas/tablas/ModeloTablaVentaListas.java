@@ -32,7 +32,7 @@ public class ModeloTablaVentaListas extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return (venta != null) ? venta.getNro_fact(): "";
+                return (venta != null) ? venta.getNro_venta(): "";
             case 1:
                 return (venta != null) ? venta.getFecha() : "";
             default:

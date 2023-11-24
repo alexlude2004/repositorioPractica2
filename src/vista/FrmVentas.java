@@ -67,7 +67,7 @@ public class FrmVentas extends javax.swing.JDialog {
             try {
                 vtl.getVenta().setId_vendedor(UtilVista.getComboVendedores(cbxVendedor).getId());
                 vtl.getVenta().setId_auto(UtilVista.getComboMarcas(cbxMarca).getId());
-                vtl.getVenta().setNro_fact(txtNro_Venta.getText());
+                vtl.getVenta().setNro_venta(txtNro_Venta.getText());
                 vtl.getVenta().setFecha(new Date());
                 
                 if (vtl.getVenta().getId() == null) {
@@ -121,7 +121,7 @@ public class FrmVentas extends javax.swing.JDialog {
         } else {
             try {
                 vtl.setVenta(mtl.getVentas().get(vtl.getIndex()));
-                txtNro_Venta.setText(vtl.getVenta().getNro_fact());
+                txtNro_Venta.setText(vtl.getVenta().getNro_venta());
                 txtFecha.setText(vtl.getVenta().getFecha().toString());
                 cbxVendedor.setSelectedIndex(vtl.getVenta().getId_vendedor() - 1);         
                 cbxMarca.setSelectedIndex(vtl.getVenta().getId_auto() - 1);                
