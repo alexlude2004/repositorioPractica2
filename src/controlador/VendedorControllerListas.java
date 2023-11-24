@@ -74,27 +74,27 @@ public class VendedorControllerListas extends DataAccessObject<Vendedor> {
         this.index = index;
     }
 
-    public static void main(String[] args) {
-        VendedorControllerListas vcl = new VendedorControllerListas();
-        vcl.getVendedor().setId(1);
-        vcl.getVendedor().setDni("1102745690");
-        vcl.getVendedor().setRuc("1102745690001");
-        vcl.getVendedor().setApellidos("Rodríguez Pérez");
-        vcl.getVendedor().setNombres("Ana María");
-        vcl.getVendedor().setDireccion("Calle San Gerardo #123");
-        vcl.getVendedor().setTelefono(" 555-1234");
-        vcl.getVendedor().setCorreo("ana.rodriguez@email.com");
-        vcl.save();
-
-        vcl.getVendedor().setId(2);
-        vcl.getVendedor().setDni("1108912281");
-        vcl.getVendedor().setRuc("1108912281001");
-        vcl.getVendedor().setApellidos("Medina López");
-        vcl.getVendedor().setNombres("Javier Alejandro");
-        vcl.getVendedor().setDireccion("Avenida del Sol 567, Pueblo Imaginario");
-        vcl.getVendedor().setTelefono("(555) 987-6543");
-        vcl.getVendedor().setCorreo("javier.rodriguez@emailfantasia.com");
-        vcl.save();
-    }
-        
+//    public static void main(String[] args) {
+//        VendedorControllerListas vcl = new VendedorControllerListas();
+//        vcl.getVendedor().setId(1);
+//        vcl.getVendedor().setDni("1102745690");
+//        vcl.getVendedor().setRuc("1102745690001");
+//        vcl.getVendedor().setApellidos("Rodríguez Pérez");
+//        vcl.getVendedor().setNombres("Ana María");
+//        vcl.getVendedor().setDireccion("Calle San Gerardo #123");
+//        vcl.getVendedor().setTelefono(" 555-1234");
+//        vcl.getVendedor().setCorreo("ana.rodriguez@email.com");
+//        vcl.save();
+//
+//        vcl.getVendedor().setId(2);
+//        vcl.getVendedor().setDni("1108912281");
+//        vcl.getVendedor().setRuc("1108912281001");
+//        vcl.getVendedor().setApellidos("Medina López");
+//        vcl.getVendedor().setNombres("Javier Alejandro");
+//        vcl.getVendedor().setDireccion("Avenida del Sol 567, Pueblo Imaginario");
+//        vcl.getVendedor().setTelefono("(555) 987-6543");
+//        vcl.getVendedor().setCorreo("javier.rodriguez@emailfantasia.com");
+//        vcl.save();
+//    }
+//        
 }
