@@ -73,15 +73,15 @@ public class Venta {
     /**
      * @return the nro_venta
      */
-    public String getNro_fact() {
+    public String getNro_venta() {
         return nro_venta;
     }
 
     /**
-     * @param nro_fact the nro_venta to set
+     * @param nro_venta the nro_venta to set
      */
-    public void setNro_fact(String nro_fact) {
-        this.nro_venta = nro_fact;
+    public void setNro_venta(String nro_venta) {
+        this.nro_venta = nro_venta;
     }
         
 }
