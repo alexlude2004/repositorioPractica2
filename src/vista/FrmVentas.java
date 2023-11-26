@@ -18,7 +18,6 @@ import vista.listas.util.UtilVista;
 public class FrmVentas extends javax.swing.JDialog {
 
     private VendedorControllerListas vcl = new VendedorControllerListas(); 
-    private AutoControllerListas ac = new AutoControllerListas();
     private VentaControllerListas vtl = new VentaControllerListas();
     private ModeloTablaVentaListas mtl = new ModeloTablaVentaListas();
     private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd / MM / yy");
