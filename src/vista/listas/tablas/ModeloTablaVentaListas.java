@@ -34,7 +34,7 @@ public class ModeloTablaVentaListas extends AbstractTableModel {
             case 0:
                 return (venta != null) ? venta.getNro_venta(): "";
             case 1:
-                return (venta != null) ? venta.getFecha() : "";
+                return (venta != null) ? venta.getFecha() : ""; 
             default:
                 return null;
         }
@@ -46,7 +46,7 @@ public class ModeloTablaVentaListas extends AbstractTableModel {
             case 0:
                 return "Numero de Venta";
             case 1:
-                return "Fecha";
+                return "Fecha";           
             default:
                 return null;
         }

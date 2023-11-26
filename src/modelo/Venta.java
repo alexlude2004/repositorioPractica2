@@ -83,5 +83,5 @@ public class Venta {
     public void setNro_venta(String nro_venta) {
         this.nro_venta = nro_venta;
     }
-        
+
 }

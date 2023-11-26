@@ -1,10 +1,12 @@
 
 package vista.listas.util;
 
+import controlador.AutoControllerListas;
 import controlador.MarcaControllerListas;
 import controlador.TDA.listas.exception.VacioException;
 import controlador.VendedorControllerListas;
 import javax.swing.JComboBox;
+import modelo.Auto;
 import modelo.Marca;
 import modelo.Vendedor;
 
@@ -38,4 +40,16 @@ public class UtilVista {
         return (Vendedor)cbx.getSelectedItem();
     }    
     
+    public static void cargarAuto(JComboBox cbxAuto) throws VacioException {
+        AutoControllerListas ac = new AutoControllerListas();
+        cbxAuto.removeAllItems();
+        for (int i = 0; i < ac.getAutos().getSize(); i++) {
+            cbxAuto.addItem(ac.getAutos().get(i));
+        }
+    }
+    
+    public static Auto getComboAutos(JComboBox cbx) {
+        return (Auto)cbx.getSelectedItem();
+    }    
+   
 }

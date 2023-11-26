@@ -34,6 +34,7 @@ public class FrmAutos extends javax.swing.JDialog {
         txtColor.setText("");
         txtAnio.setText("");
         txtPrecio.setText("");
+        txtModelo.setText("");
         acl.setAuto(null);
         acl.setAutos(new LinkedList<>());
         cargarTabla();
@@ -45,7 +46,7 @@ public class FrmAutos extends javax.swing.JDialog {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
-
+    
     private void cargarTabla() {
         mtal.setAutos(acl.getAutos());
         tblTabla.setModel(mtal);
@@ -55,7 +56,8 @@ public class FrmAutos extends javax.swing.JDialog {
     private Boolean validar() {
         return !txtColor.getText().trim().isEmpty() &&
                     !txtAnio.getText().trim().isEmpty() &&
-                    !txtPrecio.getText().trim().isEmpty();
+                    !txtPrecio.getText().trim().isEmpty() &&
+                    !txtModelo.getText().trim().isEmpty();
     }
     
     private void guardar() {
@@ -65,6 +67,7 @@ public class FrmAutos extends javax.swing.JDialog {
                 acl.getAuto().setColor(txtColor.getText());
                 acl.getAuto().setAnio(Integer.parseInt(txtAnio.getText()));
                 acl.getAuto().setPrecio(Double.parseDouble(txtPrecio.getText()));
+                acl.getAuto().setModelo(txtModelo.getText());
                 
                 if (acl.getAuto().getId() == null) {
                     if (acl.save()) {
@@ -120,6 +123,7 @@ public class FrmAutos extends javax.swing.JDialog {
                 txtColor.setText(acl.getAuto().getColor().toString());
                 txtAnio.setText(acl.getAuto().getAnio().toString());
                 txtPrecio.setText(acl.getAuto().getPrecio().toString());
+                txtModelo.setText(acl.getAuto().getModelo().toString());
                 cbxMarca.setSelectedIndex(acl.getAuto().getId_marca() - 1);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, 
@@ -152,6 +156,9 @@ public class FrmAutos extends javax.swing.JDialog {
         txtPrecio = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtModelo = new javax.swing.JTextField();
+        txtAnio1 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTabla = new javax.swing.JTable();
@@ -174,7 +181,7 @@ public class FrmAutos extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Color:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
@@ -184,7 +191,7 @@ public class FrmAutos extends javax.swing.JDialog {
         jLabel3.setText("Anio:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel3, gridBagConstraints);
@@ -203,20 +210,20 @@ public class FrmAutos extends javax.swing.JDialog {
         cbxMarca.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.ipadx = 100;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(cbxMarca, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(txtColor, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 50;
@@ -250,10 +257,35 @@ public class FrmAutos extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(btnCancelar, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(txtModelo, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(txtAnio1, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Modelo:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(jLabel6, gridBagConstraints);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
@@ -374,13 +406,16 @@ public class FrmAutos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTabla;
     private javax.swing.JTextField txtAnio;
+    private javax.swing.JTextField txtAnio1;
     private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

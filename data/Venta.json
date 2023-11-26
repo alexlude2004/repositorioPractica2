@@ -1,18 +1,1 @@
-{
-    "controlador.TDA.listas.LinkedList": {
-        "head": {
-            "data": {
-                "@class": "modelo.Venta",
-                "id": 1,
-                "fecha": "2023-11-24 15:07:27.623 UTC",
-                "nro_venta": "0000000001",
-                "id_auto": 1,
-                "id_vendedor": 1
-            }
-        },
-        "last": {
-            "@reference": "..\/head"
-        },
-        "size": 1
-    }
-}
+{"controlador.TDA.listas.LinkedList":{"head":{"data":{"@class":"modelo.Venta","id":1,"fecha":"2023-11-25 05:00:00.0 UTC","nro_venta":"0000000001","id_auto":1,"id_vendedor":1},"next":{"data":{"@class":"modelo.Venta","id":2,"fecha":"2023-11-25 05:00:00.0 UTC","nro_venta":"0000000002","id_auto":2,"id_vendedor":2},"next":{"data":{"@class":"modelo.Venta","id":3,"fecha":"2023-11-25 05:00:00.0 UTC","nro_venta":"0000000003","id_auto":4,"id_vendedor":3},"next":{"data":{"@class":"modelo.Venta","id":4,"fecha":"2023-11-25 05:00:00.0 UTC","nro_venta":"0000000004","id_auto":6,"id_vendedor":4},"next":{"data":{"@class":"modelo.Venta","id":5,"fecha":"2023-11-25 05:00:00.0 UTC","nro_venta":"0000000005","id_auto":3,"id_vendedor":1},"next":{"data":{"@class":"modelo.Venta","id":6,"fecha":"2023-11-25 05:00:00.0 UTC","nro_venta":"0000000006","id_auto":4,"id_vendedor":2}}}}}}},"last":{"@reference":"..\/head\/next\/next\/next\/next\/next"},"size":6}}

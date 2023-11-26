@@ -85,45 +85,7 @@ public class MarcaControllerListas extends DataAccessObject<Marca> {
         mcl.getMarca().setId(8);
         mcl.getMarca().setNombre("Nissan");
         mcl.getMarca().setEstado(true);
-        mcl.getMarca().setId(1);
-        mcl.getMarca().setNombre("Honda");
-        mcl.getMarca().setEstado(true);
         mcl.save();
-        
-        mcl.getMarca().setId(2);
-        mcl.getMarca().setNombre("Toyota");
-        mcl.getMarca().setEstado(true);
-        mcl.save();
-        
-        mcl.getMarca().setId(3);
-        mcl.getMarca().setNombre("Chevrolet");
-        mcl.getMarca().setEstado(true);
-        mcl.save();
-        
-        mcl.getMarca().setId(4);
-        mcl.getMarca().setNombre("Ford");
-        mcl.getMarca().setEstado(true);
-        mcl.save(); 
-        
-        mcl.getMarca().setId(5);
-        mcl.getMarca().setNombre("Hyundai");
-        mcl.getMarca().setEstado(true);
-        mcl.save();        
-        
-        mcl.getMarca().setId(6);
-        mcl.getMarca().setNombre("Kia");
-        mcl.getMarca().setEstado(true);
-        mcl.save();     
-        
-        mcl.getMarca().setId(7);
-        mcl.getMarca().setNombre("Mercedes");
-        mcl.getMarca().setEstado(true);
-        mcl.save();      
-        
-        mcl.getMarca().setId(8);
-        mcl.getMarca().setNombre("Nissan");
-        mcl.getMarca().setEstado(true);
-        mcl.save();         
     }
     
 }

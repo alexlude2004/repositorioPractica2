@@ -15,7 +15,7 @@ public class Marca {
         this.nombre = nombre;
         this.estado = estado;
     }
-    
+
     public Marca() {
         
     }    
@@ -66,5 +66,5 @@ public class Marca {
     public String toString() {
         return nombre;
     }
-        
+
 }

@@ -1,6 +1,7 @@
 
 package vista;
 
+import controlador.AutoControllerListas;
 import controlador.TDA.listas.LinkedList;
 import controlador.VendedorControllerListas;
 import controlador.VentaControllerListas;
@@ -17,9 +18,10 @@ import vista.listas.util.UtilVista;
 public class FrmVentas extends javax.swing.JDialog {
 
     private VendedorControllerListas vcl = new VendedorControllerListas(); 
+    private AutoControllerListas ac = new AutoControllerListas();
     private VentaControllerListas vtl = new VentaControllerListas();
     private ModeloTablaVentaListas mtl = new ModeloTablaVentaListas();
-    private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd / MM / yyyy");
+    private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd / MM / yy");
     
     /**
      * Creates new form FrmAutos
@@ -45,7 +47,7 @@ public class FrmVentas extends javax.swing.JDialog {
         vtl.setIndex(-1);
         try {
             UtilVista.cargarVendedor(cbxVendedor);
-            UtilVista.cargarMarca(cbxMarca);
+            UtilVista.cargarAuto(cbxAuto);
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -66,9 +68,11 @@ public class FrmVentas extends javax.swing.JDialog {
         if (validar()) {
             try {
                 vtl.getVenta().setId_vendedor(UtilVista.getComboVendedores(cbxVendedor).getId());
-                vtl.getVenta().setId_auto(UtilVista.getComboMarcas(cbxMarca).getId());
+                vtl.getVenta().setId_auto(UtilVista.getComboAutos(cbxAuto).getId());
                 vtl.getVenta().setNro_venta(txtNro_Venta.getText());
-                vtl.getVenta().setFecha(new Date());
+                String fecha = txtFecha.getText();
+                Date fechaFormateada = formatoFecha.parse(fecha); 
+                vtl.getVenta().setFecha(fechaFormateada);
                 
                 if (vtl.getVenta().getId() == null) {
                     if (vtl.save()) {
@@ -122,9 +126,9 @@ public class FrmVentas extends javax.swing.JDialog {
             try {
                 vtl.setVenta(mtl.getVentas().get(vtl.getIndex()));
                 txtNro_Venta.setText(vtl.getVenta().getNro_venta());
-                txtFecha.setText(vtl.getVenta().getFecha().toString());
+                txtFecha.setText(vtl.getVenta().getFecha().toString().format(formatoFecha.format(new Date())));
                 cbxVendedor.setSelectedIndex(vtl.getVenta().getId_vendedor() - 1);         
-                cbxMarca.setSelectedIndex(vtl.getVenta().getId_auto() - 1);                
+                cbxAuto.setSelectedIndex(vtl.getVenta().getId_auto() - 1);                
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, 
                         e.getMessage(), 
@@ -148,14 +152,15 @@ public class FrmVentas extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         cbxVendedor = new javax.swing.JComboBox<>();
         txtFecha = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        cbxMarca = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txtNro_Venta = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        cbxAuto = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTabla = new javax.swing.JTable();
@@ -184,15 +189,6 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel2, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Auto vendido:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(jLabel3, gridBagConstraints);
-
         cbxVendedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxVendedor.setSelectedIndex(-1);
         cbxVendedor.setToolTipText("");
@@ -203,11 +199,9 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(cbxVendedor, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 50;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(txtFecha, gridBagConstraints);
 
@@ -219,7 +213,8 @@ public class FrmVentas extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(btnGuardar, gridBagConstraints);
 
@@ -231,19 +226,10 @@ public class FrmVentas extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(btnCancelar, gridBagConstraints);
-
-        cbxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxMarca.setSelectedIndex(-1);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(cbxMarca, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Numero de Venta:");
@@ -258,9 +244,38 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(txtNro_Venta, gridBagConstraints);
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("Auto vendido:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(jLabel5, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Auto vendido:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(jLabel6, gridBagConstraints);
+
+        cbxAuto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxAuto.setSelectedIndex(-1);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(cbxAuto, gridBagConstraints);
+
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Lista de ventas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Historial de ventas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         tblTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -304,7 +319,7 @@ public class FrmVentas extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,12 +388,13 @@ public class FrmVentas extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JComboBox<String> cbxMarca;
+    private javax.swing.JComboBox<String> cbxAuto;
     private javax.swing.JComboBox<String> cbxVendedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

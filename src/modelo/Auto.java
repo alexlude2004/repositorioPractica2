@@ -10,7 +10,21 @@ public class Auto {
     private String color;
     private Double precio;
     private Integer anio;
+    private String modelo;
     private Integer id_marca;
+
+    public Auto(Integer id, String color, Double precio, Integer anio, String modelo, Integer id_marca) {
+        this.id = id;
+        this.color = color;
+        this.precio = precio;
+        this.anio = anio;
+        this.modelo = modelo;
+        this.id_marca = id_marca;
+    }
+
+    public Auto() {
+        
+    }    
     
     /**
      * @return the id
@@ -80,6 +94,25 @@ public class Auto {
      */
     public void setId_marca(Integer id_marca) {
         this.id_marca = id_marca;
+    }
+    
+    /**
+     * @return the modelo
+     */
+    public String getModelo() {
+        return modelo;
+    }
+
+    /**
+     * @param modelo the modelo to set
+     */
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+    
+    @Override
+    public String toString() {
+        return " Modelo: " + modelo + " ----- Color: " +  color + " ----- Anio: " + anio.toString() + " ----- Precio: $" + precio.toString();
     }
     
 }
