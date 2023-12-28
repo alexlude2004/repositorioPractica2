@@ -1,24 +1,27 @@
 
 package vista;
 
+import controlador.AutoControllerListas;
+import controlador.MarcaControllerListas;
 import controlador.TDA.listas.LinkedList;
-import controlador.VendedorControllerListas;
 import javax.swing.JOptionPane;
-import vista.listas.tablas.ModeloTablaVendedorListas;
+import vista.listas.tablas.ModeloTablaAutoListas;
+import vista.listas.util.UtilVista;
 
 /**
  *
  * @author alexg
  */
-public class FrmVendedores extends javax.swing.JDialog {
+public class FrmRepuesto extends javax.swing.JDialog {
 
-    private VendedorControllerListas vcl = new VendedorControllerListas();
-    private ModeloTablaVendedorListas mtvl = new ModeloTablaVendedorListas();
+    private AutoControllerListas acl = new AutoControllerListas();
+    private MarcaControllerListas mcl = new MarcaControllerListas();
+    private ModeloTablaAutoListas mtal = new ModeloTablaAutoListas();
     
     /**
      * Creates new form FrmAutos
      */
-    public FrmVendedores(java.awt.Frame parent, boolean modal) {
+    public FrmRepuesto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -27,14 +30,12 @@ public class FrmVendedores extends javax.swing.JDialog {
     }
     
     private void ordenar() {
-        String metodo = cbxMetodoOrdenacion.getSelectedItem().toString();
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
         Integer ascdesc  = cbxAscDesc.getSelectedIndex();
         String tipoOrdenamiento = cbxAscDesc.getSelectedItem().toString();
         try {
-            mtvl.setVendedores(vcl.ordenar(ascdesc, criterio, mtvl.getVendedores(), metodo));
-            System.out.println("Metodo de Ordenacion: " + metodo + "\nCritero: " + criterio + "\nTipo de Ordenamiento: " + tipoOrdenamiento + "\n");
-            tblTabla.setModel(mtvl);
+            mtal.setAutos(acl.ordenar(ascdesc, criterio, acl.getAutos(), "quickSort"));
+            tblTabla.setModel(mtal);
             tblTabla.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
@@ -42,59 +43,89 @@ public class FrmVendedores extends javax.swing.JDialog {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }    
-
-    private void limpiar() {
-        cargarTabla();
-        txtDNI.setText("");
-        txtRUC.setText("");
-        txtNombres.setText("");
-        txtApellidos.setText("");
-        txtDireccion.setText("");
-        txtTelefono.setText("");
-        txtCorreo.setText("");
-        vcl.setVendedor(null);
-        vcl.setVendedores(new LinkedList<>());
-        cargarTabla();
-        vcl.setVendedor(null);
-        vcl.setIndex(-1);
+    }        
+    
+    private void buscar() {
+        String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
         try {
+            if (criterio.equalsIgnoreCase("precio") 
+                    || criterio.equalsIgnoreCase("anio menor")
+                    || criterio.equalsIgnoreCase("precio mayor")) {
+//                Integer anio = Integer.parseInt(txtBusqueda.getText());
+                Double precio = Double.parseDouble(txtBusqueda.getText());
+                if (criterio.equalsIgnoreCase("anio")) {
 
+                } else if (criterio.equalsIgnoreCase("precio mayor")) {
+                    mtal.setAutos(acl.buscarPrecioMayor(acl.getAutos(), "precio", precio));
+//                    mtal.setAutos(acl.buscarPrecioMayores(acl.getAutos(), precio));
+//                    mtal.setAutos(acl.busquedaAnioMayor(acl.getAutos(), "anio", anio));
+                    mtal.setAutos(acl.buscarPrecioMayor(acl.getAutos(), "precio", precio));
+                } else {
+//                    mtal.setAutos(acl.busquedaAnioMenor(acl.getAutos(), "anio", anio));
+                }
+            } else if (criterio.equalsIgnoreCase("marca")) {
+//                mtal.setAutos(acl.buscarMarca(acl.listAll(), "id_marca", UtilVista.getComboMarcas(cbxMarcaB)));
+                  mtal.setAutos(acl.buscarMarca(acl.listAll(), "id_marca", UtilVista.getComboMarcas(cbxMarcaB)));
+            }
+            tblTabla.setModel(mtal);
+            tblTabla.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Ingrese el texto a buscar",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }    
+    
+    private void limpiar() {
+        txtColor.setText("");
+        txtAnio.setText("");
+        txtPrecio.setText("");
+        txtModelo.setText("");
+        acl.setAuto(null);
+        acl.setAutos(new LinkedList<>());
+        cargarTabla();
+        acl.setAuto(null);
+        acl.setIndex(-1);
+        try {
+            UtilVista.cargarMarca(cbxMarca);
+            UtilVista.cargarMarca(cbxMarcaB);
+            cbxMarcaB.setVisible(false);
+            txtBusqueda.setVisible(true);            
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
-
+    
     private void cargarTabla() {
-        mtvl.setVendedores(vcl.getVendedores());
-        tblTabla.setModel(mtvl);
+        mtal.setAutos(acl.getAutos());
+        tblTabla.setModel(mtal);
         tblTabla.updateUI();
     }
     
     private Boolean validar() {
-        return !txtNombres.getText().trim().isEmpty() &&
-                    !txtTelefono.getText().trim().isEmpty() &&
-                    !txtCorreo.getText().trim().isEmpty();
+        return !txtColor.getText().trim().isEmpty() &&
+                    !txtAnio.getText().trim().isEmpty() &&
+                    !txtPrecio.getText().trim().isEmpty() &&
+                    !txtModelo.getText().trim().isEmpty();
     }
     
     private void guardar() {
         if (validar()) {
             try {
-                vcl.getVendedor().setDni(txtDNI.getText());
-                vcl.getVendedor().setRuc(txtRUC.getText());
-                vcl.getVendedor().setNombres(txtNombres.getText());
-                vcl.getVendedor().setApellidos(txtApellidos.getText());
-                vcl.getVendedor().setDireccion(txtDireccion.getText());
-                vcl.getVendedor().setTelefono(txtTelefono.getText());
-                vcl.getVendedor().setCorreo(txtCorreo.getText());
+                acl.getAuto().setId_marca(UtilVista.getComboMarcas(cbxMarca).getId());
+                acl.getAuto().setColor(txtColor.getText());
+                acl.getAuto().setAnio(Integer.parseInt(txtAnio.getText()));
+                acl.getAuto().setPrecio(Double.parseDouble(txtPrecio.getText()));
+                acl.getAuto().setModelo(txtModelo.getText());
                 
-                if (vcl.getVendedor().getId() == null) {
-                    if (vcl.save()) {
+                if (acl.getAuto().getId() == null) {
+                    if (acl.save()) {
                         limpiar();
                         JOptionPane.showMessageDialog(null, 
                                 "Se ha guardado correctamente", "Ok", 
                                 JOptionPane.INFORMATION_MESSAGE);   
-                        vcl.setVendedor(null); 
+                        acl.setAuto(null); 
                     } else {
                     JOptionPane.showMessageDialog(null, 
                             "No se ha podido guardar correctamente", 
@@ -102,12 +133,12 @@ public class FrmVendedores extends javax.swing.JDialog {
                             JOptionPane.ERROR_MESSAGE);
                 } 
             } else {
-                    if (vcl.update(vcl.getIndex())) {
+                    if (acl.update(acl.getIndex())) {
                         limpiar();
                         JOptionPane.showMessageDialog(null, 
                                 "Se ha editado correctamente", "Ok", 
                                 JOptionPane.INFORMATION_MESSAGE);   
-                        vcl.setVendedor(null); 
+                        acl.setAuto(null); 
                     } else {
                     JOptionPane.showMessageDialog(null, 
                             "No se ha podido editar correctamente", 
@@ -130,22 +161,20 @@ public class FrmVendedores extends javax.swing.JDialog {
     }
     
     private void cargarVista() {
-        vcl.setIndex(tblTabla.getSelectedRow());
-        if (vcl.getIndex() < 0) {
+        acl.setIndex(tblTabla.getSelectedRow());
+        if (acl.getIndex() < 0) {
             JOptionPane.showMessageDialog(null,
                     "Seleccione una fila", 
                     "Error", 
                     JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                vcl.setVendedor(mtvl.getVendedores().get(vcl.getIndex()));
-                txtDNI.setText(vcl.getVendedor().getDni().toString());
-                txtRUC.setText(vcl.getVendedor().getRuc().toString());                
-                txtNombres.setText(vcl.getVendedor().getNombres().toString());
-                txtApellidos.setText(vcl.getVendedor().getApellidos().toString());                
-                txtDireccion.setText(vcl.getVendedor().getDireccion().toString());                
-                txtTelefono.setText(vcl.getVendedor().getTelefono().toString());                
-                txtCorreo.setText(vcl.getVendedor().getCorreo().toString());                
+                acl.setAuto(mtal.getAutos().get(acl.getIndex()));
+                txtColor.setText(acl.getAuto().getColor());
+                txtAnio.setText(acl.getAuto().getAnio().toString());
+                txtPrecio.setText(acl.getAuto().getPrecio().toString());
+                txtModelo.setText(acl.getAuto().getModelo());
+                cbxMarca.setSelectedIndex(acl.getAuto().getId_marca() - 1);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, 
                         e.getMessage(), 
@@ -171,94 +200,100 @@ public class FrmVendedores extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtNombres = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
-        txtCorreo = new javax.swing.JTextField();
+        cbxMarca = new javax.swing.JComboBox<>();
+        txtColor = new javax.swing.JTextField();
+        txtAnio = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        txtDNI = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtRUC = new javax.swing.JTextField();
+        txtModelo = new javax.swing.JTextField();
+        txtAnio1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtApellidos = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTabla = new javax.swing.JTable();
         btnSeleccionar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtBusqueda = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         cbxCriterio = new javax.swing.JComboBox<>();
         cbxAscDesc = new javax.swing.JComboBox<>();
-        cbxMetodoOrdenacion = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
-        btnOrdenar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        cbxMarcaB = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Informacion del Agente vendedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Informacion del auto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("DNI:");
+        jLabel1.setText("Marca:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 46;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel1, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Nombres:");
+        jLabel2.setText("Color:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 17;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel2, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Telefono:");
+        jLabel3.setText("Anio:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 19;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel3, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Correo:");
+        jLabel4.setText("Precio de venta:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.ipadx = 31;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel4, gridBagConstraints);
+
+        cbxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxMarca.setSelectedIndex(-1);
+        cbxMarca.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 110;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 100;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(txtNombres, gridBagConstraints);
+        jPanel3.add(cbxMarca, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(txtColor, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 139;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(txtTelefono, gridBagConstraints);
+        jPanel3.add(txtAnio, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 139;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(txtCorreo, gridBagConstraints);
+        jPanel3.add(txtPrecio, gridBagConstraints);
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -268,8 +303,7 @@ public class FrmVendedores extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(btnGuardar, gridBagConstraints);
 
@@ -280,75 +314,39 @@ public class FrmVendedores extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(btnCancelar, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(txtModelo, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 110;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(txtDNI, gridBagConstraints);
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setText("RUC:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 28;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(jLabel5, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 110;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(txtRUC, gridBagConstraints);
+        jPanel3.add(txtAnio1, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("Apellidos:");
+        jLabel6.setText("Modelo:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel6, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 110;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(txtApellidos, gridBagConstraints);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("Direccion:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(jLabel7, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 139;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel3.add(txtDireccion, gridBagConstraints);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Lista de Agentes Vendedores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Lista de Autos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         tblTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -366,11 +364,11 @@ public class FrmVendedores extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 400;
-        gridBagConstraints.ipady = -100;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(jScrollPane2, gridBagConstraints);
 
@@ -382,10 +380,27 @@ public class FrmVendedores extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnSeleccionar, gridBagConstraints);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setText("Texto:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(jLabel8, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 142;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(txtBusqueda, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Criterio:");
@@ -395,17 +410,27 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(jLabel9, gridBagConstraints);
 
-        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "RUC", "APELLIDOS", "NOMBRES", "DIRECCION", "TELEFONO", "CORREO" }));
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COLOR", "PRECIO", "ANIO", "MODELO", "MARCA", "PRECIO MAYOR", "ANIO MENOR" }));
+        cbxCriterio.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxCriterioItemStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 55;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 100);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 80);
         jPanel5.add(cbxCriterio, gridBagConstraints);
 
         cbxAscDesc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASCENDENTE", "DESCENDETE" }));
+        cbxAscDesc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxAscDescItemStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -413,36 +438,34 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(cbxAscDesc, gridBagConstraints);
 
-        cbxMetodoOrdenacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MERGESORT", "QUICKSORT" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = 55;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 100);
-        jPanel5.add(cbxMetodoOrdenacion, gridBagConstraints);
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel10.setText("Metodo de Ordenacion:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(10, 100, 10, 10);
-        jPanel5.add(jLabel10, gridBagConstraints);
-
-        btnOrdenar.setText("Ordenar");
-        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenarActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel5.add(btnOrdenar, gridBagConstraints);
+        jPanel5.add(btnBuscar, gridBagConstraints);
+
+        cbxMarcaB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxMarcaB.setSelectedIndex(-1);
+        cbxMarcaB.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxMarcaBItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 134;
+        jPanel5.add(cbxMarcaB, gridBagConstraints);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.CENTER);
 
@@ -450,11 +473,11 @@ public class FrmVendedores extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1083, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
         );
 
         pack();
@@ -472,9 +495,28 @@ public class FrmVendedores extends javax.swing.JDialog {
         cargarVista();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+    private void cbxCriterioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxCriterioItemStateChanged
+        if (evt.getItem().toString().equalsIgnoreCase("MARCA")) {
+            txtBusqueda.setVisible(false);
+            cbxMarcaB.setVisible(true);
+        } else {
+//            ordenar();
+            txtBusqueda.setVisible(true);
+            cbxMarcaB.setVisible(false);
+        }        
+    }//GEN-LAST:event_cbxCriterioItemStateChanged
+
+    private void cbxAscDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxAscDescItemStateChanged
         ordenar();
-    }//GEN-LAST:event_btnOrdenarActionPerformed
+    }//GEN-LAST:event_cbxAscDescItemStateChanged
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void cbxMarcaBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxMarcaBItemStateChanged
+//        buscar();
+    }//GEN-LAST:event_cbxMarcaBItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -493,13 +535,13 @@ public class FrmVendedores extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmVendedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRepuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmVendedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRepuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmVendedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRepuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmVendedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRepuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -507,7 +549,7 @@ public class FrmVendedores extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmVendedores dialog = new FrmVendedores(new javax.swing.JFrame(), true);
+                FrmRepuesto dialog = new FrmRepuesto(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -520,33 +562,31 @@ public class FrmVendedores extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnOrdenar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxAscDesc;
     private javax.swing.JComboBox<String> cbxCriterio;
-    private javax.swing.JComboBox<String> cbxMetodoOrdenacion;
+    private javax.swing.JComboBox<String> cbxMarca;
+    private javax.swing.JComboBox<String> cbxMarcaB;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblTabla;
-    private javax.swing.JTextField txtApellidos;
-    private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtNombres;
-    private javax.swing.JTextField txtRUC;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtAnio;
+    private javax.swing.JTextField txtAnio1;
+    private javax.swing.JTextField txtBusqueda;
+    private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

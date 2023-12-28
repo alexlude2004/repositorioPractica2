@@ -3,6 +3,7 @@ package vista.listas.util;
 
 import controlador.AutoControllerListas;
 import controlador.MarcaControllerListas;
+import controlador.TDA.listas.LinkedList;
 import controlador.TDA.listas.exception.VacioException;
 import controlador.VendedorControllerListas;
 import javax.swing.JComboBox;
@@ -17,12 +18,22 @@ import modelo.Vendedor;
 public class UtilVista {
     
     public static void cargarMarca(JComboBox cbxMarca) throws VacioException {
+        MarcaControllerListas ac = new MarcaControllerListas();
+        cbxMarca.removeAllItems();
+        for (int i = 0; i < ac.getMarcas().getSize(); i++) {
+            cbxMarca.addItem(ac.getMarcas().get(i));
+        }
+    } 
+    
+    public static void cargarMarcaL(JComboBox cbxMarca) throws VacioException, Exception {
         MarcaControllerListas mc = new MarcaControllerListas();
         cbxMarca.removeAllItems();
-        for (int i = 0; i < mc.getMarcas().getSize(); i++) {
-            cbxMarca.addItem(mc.getMarcas().get(i));
+        LinkedList<Marca> lista = mc.ordenar(0, "nombre", mc.listAll(), "quickSort");
+        
+        for (int i = 0; i < lista.getSize(); i++) {
+            cbxMarca.addItem(lista.get(i));
         }
-    }
+    }    
     
     public static Marca getComboMarcas(JComboBox cbx) {
         return (Marca)cbx.getSelectedItem();
@@ -51,5 +62,5 @@ public class UtilVista {
     public static Auto getComboAutos(JComboBox cbx) {
         return (Auto)cbx.getSelectedItem();
     }    
-   
+     
 }

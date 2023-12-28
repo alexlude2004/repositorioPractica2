@@ -10,7 +10,7 @@ import java.util.Date;
 public class Venta {
     private Integer id;
     private Date fecha;
-    private String nro_venta;
+    private String codigo_venta;
     private Integer id_auto;
     private Integer id_vendedor;
 
@@ -71,17 +71,57 @@ public class Venta {
     }
 
     /**
-     * @return the nro_venta
+     * @return the codigo_venta
      */
-    public String getNro_venta() {
-        return nro_venta;
+    public String getCodigo_venta() {
+        return codigo_venta;
     }
 
     /**
-     * @param nro_venta the nro_venta to set
+     * @param codigo_venta the codigo_venta to set
      */
-    public void setNro_venta(String nro_venta) {
-        this.nro_venta = nro_venta;
+    public void setCodigo_venta(String codigo_venta) {
+        this.codigo_venta = codigo_venta;
     }
+
+    public Boolean comparar(Venta c, String field, Integer type) {
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() > c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("fecha")) {
+                    return  getFecha().after(c.getFecha());
+                }
+                else if (field.equalsIgnoreCase("codigo_venta")) {
+                    return getCodigo_venta().compareTo(c.getCodigo_venta()) > 0;
+                }
+                else if (field.equalsIgnoreCase("id_auto")) {
+                    return getId_auto().intValue() > c.getId_auto().intValue();
+                }
+                else if (field.equalsIgnoreCase("id_vendedor")) {
+                    return getId_vendedor().intValue() > c.getId_vendedor().intValue();
+                }           
+
+            case 0:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() < c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("fecha")) {
+                    return  getFecha().before(c.getFecha());
+                }
+                else if (field.equalsIgnoreCase("codigo_venta")) {
+                    return getCodigo_venta().compareTo(c.getCodigo_venta()) < 0;
+                }
+                else if (field.equalsIgnoreCase("id_auto")) {
+                    return getId_auto().intValue() < c.getId_auto().intValue();
+                }
+                else if (field.equalsIgnoreCase("id_vendedor")) {
+                    return getId_vendedor().intValue() < c.getId_vendedor().intValue();
+                }     
+            default:
+                return null;
+        }
+    }  
 
 }

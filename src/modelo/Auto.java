@@ -110,9 +110,55 @@ public class Auto {
         this.modelo = modelo;
     }
     
+    public Boolean comparar(Auto c, String field, Integer type) {
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() > c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("color")) {
+                    return  getColor().compareTo(c.getColor()) > 0;
+                }
+                else if (field.equalsIgnoreCase("precio")) {
+                    return getPrecio().doubleValue() > c.getPrecio().doubleValue();
+                }
+                else if (field.equalsIgnoreCase("anio")) {
+                    return getAnio().intValue() > c.getAnio().intValue();
+                }
+                else if (field.equalsIgnoreCase("modelo")) {
+                    return getModelo().compareTo(c.getModelo()) > 0;
+                }
+                else if (field.equalsIgnoreCase("id_marca")) {
+                    return getId_marca().intValue() > c.getId_marca().intValue();
+                }
+
+            case 0:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() < c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("color")) {
+                    return  getColor().compareTo(c.getColor()) < 0;
+                }
+                else if (field.equalsIgnoreCase("precio")) {
+                    return getPrecio().doubleValue() < c.getPrecio().doubleValue();
+                }
+                else if (field.equalsIgnoreCase("anio")) {
+                    return getAnio().intValue() < c.getAnio().intValue();
+                }
+                else if (field.equalsIgnoreCase("modelo")) {
+                    return getModelo().compareTo(c.getModelo()) < 0;
+                }
+                else if (field.equalsIgnoreCase("id_marca")) {
+                    return getId_marca().intValue() < c.getId_marca().intValue();
+                }
+            default:
+                return null;
+        }
+    }    
+    
     @Override
     public String toString() {
-        return " Modelo: " + modelo + " ----- Color: " +  color + " ----- Anio: " + anio.toString() + " ----- Precio: $" + precio.toString();
+        return modelo;
     }
     
 }

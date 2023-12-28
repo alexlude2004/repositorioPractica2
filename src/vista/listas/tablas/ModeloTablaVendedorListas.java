@@ -19,7 +19,7 @@ public class ModeloTablaVendedorListas extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 8;
     }
 
     @Override
@@ -32,15 +32,21 @@ public class ModeloTablaVendedorListas extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return (vendedor != null) ? vendedor.getDni() : "";
+                return (vendedor != null) ? vendedor.getId() : "";
             case 1:
-                return (vendedor != null) ? vendedor.getNombres() : "";
+                return (vendedor != null) ? vendedor.getDni() : "";
             case 2:
-                return (vendedor != null) ? vendedor.getApellidos() : "";
+                return (vendedor != null) ? vendedor.getRuc() : "";            
             case 3:
-                return (vendedor != null) ? vendedor.getTelefono() : "";
+                return (vendedor != null) ? vendedor.getNombres() : "";
             case 4:
+                return (vendedor != null) ? vendedor.getApellidos() : "";
+            case 5:
+                return (vendedor != null) ? "+593 7 " + vendedor.getTelefono() : "";
+            case 6:
                 return (vendedor != null) ? vendedor.getCorreo() : "";
+            case 7:
+                return (vendedor != null) ? vendedor.getDireccion() : "";
             default:
                 return null;
         }
@@ -50,15 +56,21 @@ public class ModeloTablaVendedorListas extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "DNI";
+                return "Nro";
             case 1:
-                return "Nombres";
+                return "DNI";
             case 2:
-                return "Apellidos";
+                return "RUC";                
             case 3:
-                return "Telefono";
+                return "Nombres";
             case 4:
-                return "Correo";                
+                return "Apellidos";
+            case 5:
+                return "Telefono";
+            case 6:
+                return "Correo";    
+            case 7:
+                return "Direccion";                   
             default:
                 return null;
         }

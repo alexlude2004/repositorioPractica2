@@ -146,5 +146,63 @@ public class Vendedor {
     public String toString() {
         return nombres + " " + apellidos;
     }
-           
+
+    public Boolean comparar(Vendedor c, String field, Integer type) {
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() > c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("dni")) {
+                    return  getDni().compareTo(c.getDni()) > 0;
+                }
+                else if (field.equalsIgnoreCase("ruc")) {
+                    return getRuc().compareTo(c.getRuc()) > 0;
+                }
+                else if (field.equalsIgnoreCase("apellidos")) {
+                    return getApellidos().compareTo(c.getApellidos()) > 0;
+                }
+                else if (field.equalsIgnoreCase("nombres")) {
+                    return getNombres().compareTo(c.getNombres()) > 0;
+                }
+                else if (field.equalsIgnoreCase("direccion")) {
+                    return getDireccion().compareTo(c.getDireccion()) > 0;
+                }
+                else if (field.equalsIgnoreCase("telefono")) {
+                    return getTelefono().compareTo(c.getTelefono()) > 0;
+                }
+                else if (field.equalsIgnoreCase("correo")) {
+                    return getCorreo().compareTo(c.getCorreo()) > 0;
+                }                
+
+            case 0:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() < c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("dni")) {
+                    return  getDni().compareTo(c.getDni()) < 0;
+                }
+                else if (field.equalsIgnoreCase("ruc")) {
+                    return getRuc().compareTo(c.getRuc()) < 0;
+                }
+                else if (field.equalsIgnoreCase("apellidos")) {
+                    return getApellidos().compareTo(c.getApellidos()) < 0;
+                }
+                else if (field.equalsIgnoreCase("nombres")) {
+                    return getNombres().compareTo(c.getNombres()) < 0;
+                }
+                else if (field.equalsIgnoreCase("direccion")) {
+                    return getDireccion().compareTo(c.getDireccion()) < 0;
+                }
+                else if (field.equalsIgnoreCase("telefono")) {
+                    return getTelefono().compareTo(c.getTelefono()) < 0;
+                }
+                else if (field.equalsIgnoreCase("correo")) {
+                    return getCorreo().compareTo(c.getCorreo()) < 0;
+                }   
+            default:
+                return null;
+        }
+    }      
+    
 }

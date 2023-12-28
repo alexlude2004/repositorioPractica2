@@ -1,1 +1,228 @@
-{"controlador.TDA.listas.LinkedList":{"head":{"data":{"@class":"modelo.Auto","id":1,"color":"Blanco","precio":10000,"anio":2021,"modelo":"Clase A","id_marca":7},"next":{"data":{"@class":"modelo.Auto","id":2,"color":"Gris","precio":5000,"anio":2004,"modelo":"CIVIC","id_marca":1},"next":{"data":{"@class":"modelo.Auto","id":3,"color":"Negro","precio":45500,"anio":2020,"modelo":"Rav4","id_marca":2},"next":{"data":{"@class":"modelo.Auto","id":4,"color":"Rojo","precio":50545,"anio":2021,"modelo":"X-Trail","id_marca":8},"next":{"data":{"@class":"modelo.Auto","id":5,"color":"Amarillo","precio":20780,"anio":2018,"modelo":"Sportage","id_marca":6},"next":{"data":{"@class":"modelo.Auto","id":6,"color":"Azul","precio":68955,"anio":2010,"modelo":"Explorer","id_marca":4}}}}}}},"last":{"@reference":"..\/head\/next\/next\/next\/next\/next"},"size":6}}
+{
+    "controlador.TDA.listas.LinkedList": {
+        "head": {
+            "data": {
+                "@class": "modelo.Auto",
+                "id": 1,
+                "color": "Rojo",
+                "precio": 14990,
+                "anio": 2021,
+                "modelo": "I10",
+                "id_marca": 5
+            },
+            "next": {
+                "data": {
+                    "@class": "modelo.Auto",
+                    "id": 2,
+                    "color": "Azul",
+                    "precio": 29990,
+                    "anio": 2020,
+                    "modelo": "TUCSON",
+                    "id_marca": 5
+                },
+                "next": {
+                    "data": {
+                        "@class": "modelo.Auto",
+                        "id": 3,
+                        "color": "Gris",
+                        "precio": 50990,
+                        "anio": 2020,
+                        "modelo": "SANTA FE",
+                        "id_marca": 5
+                    },
+                    "next": {
+                        "data": {
+                            "@class": "modelo.Auto",
+                            "id": 4,
+                            "color": "Negro",
+                            "precio": 99990,
+                            "anio": 2019,
+                            "modelo": "PALISADE 4X4",
+                            "id_marca": 5
+                        },
+                        "next": {
+                            "data": {
+                                "@class": "modelo.Auto",
+                                "id": 5,
+                                "color": "Marron",
+                                "precio": 15400,
+                                "anio": 2021,
+                                "modelo": "B-MAX",
+                                "id_marca": 4
+                            },
+                            "next": {
+                                "data": {
+                                    "@class": "modelo.Auto",
+                                    "id": 6,
+                                    "color": "Verde",
+                                    "precio": 86900,
+                                    "anio": 2019,
+                                    "modelo": "BRONCO",
+                                    "id_marca": 4
+                                },
+                                "next": {
+                                    "data": {
+                                        "@class": "modelo.Auto",
+                                        "id": 7,
+                                        "color": "Dorado",
+                                        "precio": 21715,
+                                        "anio": 2022,
+                                        "modelo": "C-MAX",
+                                        "id_marca": 4
+                                    },
+                                    "next": {
+                                        "data": {
+                                            "@class": "modelo.Auto",
+                                            "id": 8,
+                                            "color": "Azul",
+                                            "precio": 19835,
+                                            "anio": 2022,
+                                            "modelo": "ECOSPORT",
+                                            "id_marca": 4
+                                        },
+                                        "next": {
+                                            "data": {
+                                                "@class": "modelo.Auto",
+                                                "id": 9,
+                                                "color": "Plata",
+                                                "precio": 60100,
+                                                "anio": 2023,
+                                                "modelo": "CORVETTE",
+                                                "id_marca": 3
+                                            },
+                                            "next": {
+                                                "data": {
+                                                    "@class": "modelo.Auto",
+                                                    "id": 10,
+                                                    "color": "Rojo",
+                                                    "precio": 46900,
+                                                    "anio": 2017,
+                                                    "modelo": "CAMARO",
+                                                    "id_marca": 3
+                                                },
+                                                "next": {
+                                                    "data": {
+                                                        "@class": "modelo.Auto",
+                                                        "id": 11,
+                                                        "color": "Negro",
+                                                        "precio": 8950,
+                                                        "anio": 2012,
+                                                        "modelo": "CRUZE",
+                                                        "id_marca": 3
+                                                    },
+                                                    "next": {
+                                                        "data": {
+                                                            "@class": "modelo.Auto",
+                                                            "id": 12,
+                                                            "color": "Gris",
+                                                            "precio": 4800,
+                                                            "anio": 2010,
+                                                            "modelo": "AVEO",
+                                                            "id_marca": 3
+                                                        },
+                                                        "next": {
+                                                            "data": {
+                                                                "@class": "modelo.Auto",
+                                                                "id": 13,
+                                                                "color": "Beige",
+                                                                "precio": 35000,
+                                                                "anio": 2017,
+                                                                "modelo": "CIVIC",
+                                                                "id_marca": 1
+                                                            },
+                                                            "next": {
+                                                                "data": {
+                                                                    "@class": "modelo.Auto",
+                                                                    "id": 14,
+                                                                    "color": "Amarillo",
+                                                                    "precio": 51545,
+                                                                    "anio": 2018,
+                                                                    "modelo": "CR-V",
+                                                                    "id_marca": 1
+                                                                },
+                                                                "next": {
+                                                                    "data": {
+                                                                        "@class": "modelo.Auto",
+                                                                        "id": 15,
+                                                                        "color": "Blanco",
+                                                                        "precio": 27050,
+                                                                        "anio": 2016,
+                                                                        "modelo": "JAZZ",
+                                                                        "id_marca": 1
+                                                                    },
+                                                                    "next": {
+                                                                        "data": {
+                                                                            "@class": "modelo.Auto",
+                                                                            "id": 16,
+                                                                            "color": "Verde",
+                                                                            "precio": 33300,
+                                                                            "anio": 2016,
+                                                                            "modelo": "NSX",
+                                                                            "id_marca": 1
+                                                                        },
+                                                                        "next": {
+                                                                            "data": {
+                                                                                "@class": "modelo.Auto",
+                                                                                "id": 17,
+                                                                                "color": "Blanco",
+                                                                                "precio": 28300,
+                                                                                "anio": 2018,
+                                                                                "modelo": "SPORTAGE",
+                                                                                "id_marca": 6
+                                                                            },
+                                                                            "next": {
+                                                                                "data": {
+                                                                                    "@class": "modelo.Auto",
+                                                                                    "id": 18,
+                                                                                    "color": "Naranja",
+                                                                                    "precio": 22300,
+                                                                                    "anio": 2012,
+                                                                                    "modelo": "XCEED",
+                                                                                    "id_marca": 6
+                                                                                },
+                                                                                "next": {
+                                                                                    "data": {
+                                                                                        "@class": "modelo.Auto",
+                                                                                        "id": 19,
+                                                                                        "color": "Gris",
+                                                                                        "precio": 156989.71,
+                                                                                        "anio": 2014,
+                                                                                        "modelo": "AMG GT",
+                                                                                        "id_marca": 7
+                                                                                    },
+                                                                                    "next": {
+                                                                                        "data": {
+                                                                                            "@class": "modelo.Auto",
+                                                                                            "id": 20,
+                                                                                            "color": "Beige",
+                                                                                            "precio": 38182,
+                                                                                            "anio": 2014,
+                                                                                            "modelo": "CLASE A",
+                                                                                            "id_marca": 7
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/head\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next"
+        },
+        "size": 20
+    }
+}
