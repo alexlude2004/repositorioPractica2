@@ -20,6 +20,8 @@ public class Calificacion {
         this.id_materia = id_materia;
         this.nota = nota;
         this.retroalimentacion = retroalimentacion;
+        System.out.println("Cambio de Alexis a Calificacion");
+        System.out.println("Cambio de Alexis a Calificacion en la rama Aux");
     }
 
     public Integer getId_estudiante() {
