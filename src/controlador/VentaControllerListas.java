@@ -87,96 +87,138 @@ public class VentaControllerListas extends DataAccessObject<Venta> {
         this.index = index;
     }
     
+    // Método principal para ordenar la lista de ventas
+    
     public LinkedList<Venta> ordenar(Integer type, String field, LinkedList<Venta> lista, String algoritmo) throws Exception {
-        getVentas();  
-        Integer n = lista.getSize();    
-        Venta[] v = lista.toArray();   
-        Field faux = Utilidades.getField(Venta.class, field);    
-        if (faux != null) {    
-            if (algoritmo.equalsIgnoreCase("quickSort")) {
-                quickSort(v, 0, n - 1, type, field);    
-            } else if (algoritmo.equalsIgnoreCase("mergeSort")) {
-                mergeSort(v, 0, n - 1, type, field); 
+        getVentas();  // Obtener las ventas
+        Integer n = lista.getSize();  // Obtener el tamaño de la lista
+        Venta[] v = lista.toArray();  // Convertir la lista a un arreglo
+        Field faux = Utilidades.getField(Venta.class, field);  // Obtener el campo por el cual se va a ordenar
+        if (faux != null) {  // Si el campo existe
+            if (algoritmo.equalsIgnoreCase("quickSort")) {  // Si el algoritmo es QuickSort
+                quickSort(v, 0, n - 1, type, field);  // Llamar al método QuickSort
+            } else if (algoritmo.equalsIgnoreCase("mergeSort")) {  // Si el algoritmo es MergeSort
+                mergeSort(v, 0, n - 1, type, field);  // Llamar al método MergeSort
             } else {
-                throw new Exception("El algoritmo de ordenamiento especificado no es válido");      
+                throw new Exception("El algoritmo de ordenamiento especificado no es válido");  // Si el algoritmo no es válido, lanzar una excepción
             }
-            lista = lista.toList(v);    
+            lista = lista.toList(v);  // Convertir el arreglo ordenado de nuevo a una lista
         } else {
-            throw new Exception("No existe ese criterio de busqueda");      
+            throw new Exception("No existe ese criterio de busqueda");  // Si el campo no existe, lanzar una excepción
         }
-        return lista;      
+        return lista;  // Devolver la lista ordenada
     }      
 
-   // Metodo de Ordenamiento: MERGE SORT
+    // Método de Ordenamiento: MERGE SORT
 
+    // Método principal de MergeSort
     private void mergeSort(Venta[] arreglo, int inicio, int fin, Integer type, String field) throws Exception {
         int m = 0;
-        if (inicio < fin) {    
-            m = (inicio + fin) / 2;     
-            mergeSort(arreglo, inicio, m, type, field);      
-            mergeSort(arreglo, m + 1, fin, type, field);     
-            merge(arreglo, inicio, m, fin, type, field);       
+        if (inicio < fin) {  // Si el inicio es menor que el fin
+            m = (inicio + fin) / 2;  // Calcular el punto medio
+            mergeSort(arreglo, inicio, m, type, field);  // Llamar a MergeSort para la primera mitad
+            mergeSort(arreglo, m + 1, fin, type, field);  // Llamar a MergeSort para la segunda mitad
+            merge(arreglo, inicio, m, fin, type, field);  // Combinar ambas mitades
         }
     }
 
+    // Método para combinar dos mitades en MergeSort
     private void merge(Venta[] arreglo, int inicio, int m, int fin, Integer type, String field) throws Exception {
         int k = 0;
         int i = inicio;
         int j = m + 1;
         int n = fin - inicio + 1;
         Venta[] b = new Venta[n];
-        while (i <= m && j <= fin) {            
-            if (arreglo[i].comparar(arreglo[j], field, type)) {
-                b[k] = arreglo[i];
+        while (i <= m && j <= fin) {  // Mientras haya elementos en ambas mitades
+            if (arreglo[i].comparar(arreglo[j], field, type)) {  // Si el elemento de la primera mitad es menor
+                b[k] = arreglo[i];  // Agregarlo al arreglo temporal
                 i++;
                 k++;
-            } else {
-                b[k] = arreglo[j];
+            } else {  // Si el elemento de la segunda mitad es menor
+                b[k] = arreglo[j];  // Agregarlo al arreglo temporal
                 j++;
                 k++;
             }
         }
-        while (i <= m) {            
-            b[k] = arreglo[i];
+        while (i <= m) {  // Si quedan elementos en la primera mitad
+            b[k] = arreglo[i];  // Agregarlos al arreglo temporal
             i++;
             k++;
         }
-        while (j <= fin) {            
-            b[k] = arreglo[j];
+        while (j <= fin) {  // Si quedan elementos en la segunda mitad
+            b[k] = arreglo[j];  // Agregarlos al arreglo temporal
             j++;
             k++;
         }
-        for (k = 0; k < n; k++) {
+        for (k = 0; k < n; k++) {  // Copiar los elementos del arreglo temporal al arreglo original
             arreglo[inicio + k] = b[k];
         }
     }
-    
-    //Metodo de Ordenamiento: QUICK SORT
 
+    // Método de Ordenamiento: QUICK SORT
+
+    // Método principal de QuickSort
     public void quickSort(Venta[] arreglo, int inicio, int fin, Integer type, String field) throws Exception {
         int i = inicio;
         int j = fin;
-        Venta pivote = arreglo[(inicio + fin) / 2];
+        Venta pivote = arreglo[(inicio + fin) / 2];  // Calcular el pivote
         do {
-            while (arreglo[i].comparar(pivote, field, type)) {
-                i++;
+            while (arreglo[i].comparar(pivote, field, type)) {  // Mientras el elemento sea menor que el pivote
+                i++;  // Avanzar al siguiente elemento
             }
-            while (pivote.comparar(arreglo[j], field, type)) {
-                j--;
+            while (pivote.comparar(arreglo[j], field, type)) {  // Mientras el pivote sea menor que el elemento
+                j--;  // Retroceder al elemento anterior
             }
-            if (i <= j) {
-                Venta aux = arreglo[i];
+            if (i <= j) {  // Si los índices no se han cruzado
+                Venta aux = arreglo[i];  // Intercambiar los elementos
                 arreglo[i] = arreglo[j];
                 arreglo[j] = aux;
-                i++;
-                j--;
+                i++;  // Avanzar al siguiente elemento
+                j--;  // Retroceder al elemento anterior
             }
-        } while (i <= j);
+        } while (i <= j);  // Mientras los índices no se hayan cruzado
 
-        if (inicio < j)
-            quickSort(arreglo, inicio, j, type, field);
-        if (i < fin)
-            quickSort(arreglo, i, fin, type, field);
+        if (inicio < j)  // Si quedan elementos a la izquierda del pivote
+            quickSort(arreglo, inicio, j, type, field);  // Llamar a QuickSort para esa parte
+        if (i < fin)  // Si quedan elementos a la derecha del pivote
+            quickSort(arreglo, i, fin, type, field);  // Llamar a QuickSort para esa parte
     }
-    
+
+    public LinkedList<Venta> busquedaBinaria(LinkedList<Venta> lista, String text, Comparable clave, String tipo) throws Exception {
+        LinkedList<Venta> lo = this.ordenar(0, text, lista, "quicksort");
+        Venta[] v = lo.toArray();
+        LinkedList<Venta> result = new LinkedList<>();
+        int inicio = 0;
+        int fin = lo.getSize() - 1;
+        while (inicio <= fin) {
+            int medio = inicio + (fin - inicio) / 2;
+            Comparable valorActual;
+            switch (tipo) {
+                case "fecha":
+                    valorActual = v[medio].getFecha();
+                    break;
+                case "codigo_venta":
+                    valorActual = v[medio].getCodigo_venta();
+                    break;
+                case "auto":
+                    valorActual = v[medio].getId_auto();
+                    break;
+                case "vendedor":
+                    valorActual = v[medio].getId_vendedor();
+                    break;                
+                default:
+                    throw new Exception("Tipo de búsqueda no válido");
+            }
+            if (valorActual.equals(clave)) {
+                result.add(v[medio]);
+                break;
+            }
+            if (valorActual.compareTo(clave) < 0) {
+                inicio = medio + 1;
+            } else {
+                fin = medio - 1;
+            }
+        }
+        return result;
+    }    
 }

@@ -168,4 +168,51 @@ public class VendedorControllerListas extends DataAccessObject<Vendedor> {
             quickSort(arreglo, i, fin, type, field);
     }
     
+    public LinkedList<Vendedor> busquedaBinaria(LinkedList<Vendedor> lista, String text, Comparable clave, String tipo) throws Exception {
+        LinkedList<Vendedor> lo = this.ordenar(0, text, lista, "quicksort");
+        Vendedor[] v = lo.toArray();
+        LinkedList<Vendedor> result = new LinkedList<>();
+        int inicio = 0;
+        int fin = lo.getSize() - 1;
+        while (inicio <= fin) {
+            int medio = inicio + (fin - inicio) / 2;
+            Comparable valorActual;
+            switch (tipo) {
+                case "dni":
+                    valorActual = v[medio].getDni();
+                    break;
+                case "ruc":
+                    valorActual = v[medio].getRuc();
+                    break;
+                case "apellidos":
+                    valorActual = v[medio].getApellidos();
+                    break;
+                case "nombres":
+                    valorActual = v[medio].getNombres();
+                    break;
+                case "direccion":
+                    valorActual = v[medio].getDireccion();
+                    break;
+                case "telefono":
+                    valorActual = v[medio].getTelefono();
+                    break;  
+                case "correo":
+                    valorActual = v[medio].getCorreo();
+                    break;                    
+                default:
+                    throw new Exception("Tipo de búsqueda no válido");
+            }
+            if (valorActual.equals(clave)) {
+                result.add(v[medio]);
+                break;
+            }
+            if (valorActual.compareTo(clave) < 0) {
+                inicio = medio + 1;
+            } else {
+                fin = medio - 1;
+            }
+        }
+        return result;
+    }
+    
 }

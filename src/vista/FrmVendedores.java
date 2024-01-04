@@ -3,6 +3,7 @@ package vista;
 
 import controlador.TDA.listas.LinkedList;
 import controlador.VendedorControllerListas;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import vista.listas.tablas.ModeloTablaVendedorListas;
 
@@ -31,9 +32,10 @@ public class FrmVendedores extends javax.swing.JDialog {
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
         Integer ascdesc  = cbxAscDesc.getSelectedIndex();
         String tipoOrdenamiento = cbxAscDesc.getSelectedItem().toString();
+        
+        long startTime = System.nanoTime();
         try {
             mtvl.setVendedores(vcl.ordenar(ascdesc, criterio, mtvl.getVendedores(), metodo));
-            System.out.println("Metodo de Ordenacion: " + metodo + "\nCritero: " + criterio + "\nTipo de Ordenamiento: " + tipoOrdenamiento + "\n");
             tblTabla.setModel(mtvl);
             tblTabla.updateUI();
         } catch (Exception e) {
@@ -42,8 +44,50 @@ public class FrmVendedores extends javax.swing.JDialog {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }    
+        long endTime = System.nanoTime();
+        long timeElapsed = endTime - startTime;
+            
+        System.out.println("\nMetodo de Ordenacion: " + metodo + "\nCritero: " + criterio + "\nTipo de Ordenamiento: " + tipoOrdenamiento + "\n");
+        System.out.println("Tiempo de ejecucion " + metodo + ": " + timeElapsed + " nanosegundos");
+        System.out.println("Tiempo de ejecucion " + metodo + ": " + timeElapsed/1e6 + " milisegundos");
+    }      
 
+    private void buscar() {
+        String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
+        try {
+            if (criterio.equalsIgnoreCase("dni")) {
+                String dni = txtBusqueda.getText();
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "dni", dni, criterio));
+            } else if (criterio.equalsIgnoreCase("ruc")) {
+                String ruc = txtBusqueda.getText();
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "ruc", ruc, criterio));                
+            } else if (criterio.equalsIgnoreCase("apellidos")) {
+                String apellidos = txtBusqueda.getText();
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "apellidos", apellidos, criterio));                        
+            } else if (criterio.equalsIgnoreCase("nombres")) {
+                String nombres = txtBusqueda.getText();
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "nombres", nombres, criterio));  
+            } else if (criterio.equalsIgnoreCase("direccion")) {
+                String direccion = txtBusqueda.getText();
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "direccion", direccion, criterio));                  
+            } else if (criterio.equalsIgnoreCase("telefono")) {
+                String telefono = txtBusqueda.getText();
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "telefono", telefono, criterio));  
+            } else if (criterio.equalsIgnoreCase("correo")) {
+                String correo = txtBusqueda.getText();
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "correo", correo, criterio));  
+            }
+            
+            tblTabla.setModel(mtvl);
+            tblTabla.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Ingrese el texto a buscar",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }       
+    
     private void limpiar() {
         cargarTabla();
         txtDNI.setText("");
@@ -193,6 +237,9 @@ public class FrmVendedores extends javax.swing.JDialog {
         cbxMetodoOrdenacion = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         btnOrdenar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtBusqueda = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -370,7 +417,7 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 400;
-        gridBagConstraints.ipady = -100;
+        gridBagConstraints.ipady = -200;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(jScrollPane2, gridBagConstraints);
 
@@ -402,7 +449,7 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 55;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 100);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         jPanel5.add(cbxCriterio, gridBagConstraints);
 
         cbxAscDesc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASCENDENTE", "DESCENDETE" }));
@@ -420,7 +467,7 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 55;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 100);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         jPanel5.add(cbxMetodoOrdenacion, gridBagConstraints);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -444,17 +491,48 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnOrdenar, gridBagConstraints);
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setText("Texto:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(jLabel8, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 142;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(txtBusqueda, gridBagConstraints);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(btnBuscar, gridBagConstraints);
+
         jPanel1.add(jPanel5, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1127, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
         );
 
         pack();
@@ -475,6 +553,10 @@ public class FrmVendedores extends javax.swing.JDialog {
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
         ordenar();
     }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -520,6 +602,7 @@ public class FrmVendedores extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnOrdenar;
@@ -535,6 +618,7 @@ public class FrmVendedores extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -542,6 +626,7 @@ public class FrmVendedores extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblTabla;
     private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDireccion;
