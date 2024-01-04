@@ -180,27 +180,8 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
         if (i < fin)
             quickSort(arreglo, i, fin, type, field);
     }
-
     
     //Metodo de Busqueda: BINARIA
-    
-//    public int busquedaBin(Auto[] a, Auto clave) {
-//        int bajo = 0;
-//        int alto = a.length - 1;
-//
-//        while (bajo <= alto) {
-//            int central = (bajo + alto) / 2;
-//            Auto valorCentral = a[central];
-//            if (comp == 0) {
-//                return central;
-//            } else if (comp < 0) {
-//                alto = central - 1;
-//            } else {
-//                bajo = central + 1;
-//            }
-//        }
-//        return -1;
-//    }
 
 //    public LinkedList<Auto> buscarPrecioMayor(LinkedList<Auto> lista, String text, double precio) throws Exception {
 //        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
@@ -291,6 +272,7 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
 //        return result;
 //    }
 
+    //Busqueda Binaria - Precio menor
     public LinkedList<Auto> busquedaBinariaPrecioMenor(LinkedList<Auto> lista, String text, Double precio) throws Exception {
         LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
         Auto[] a = lo.toArray();

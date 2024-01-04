@@ -5,7 +5,7 @@
             <url>src/vista/FrmVentas.java</url>
             <bookmark id="1">
                 <name/>
-                <line>95</line>
+                <line>135</line>
                 <key/>
             </bookmark>
         </file>
@@ -13,10 +13,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/alexg/OneDrive/Desktop/Documents/NetBeansProjects/Practica-2_Grupo-1/src/vista/FrmAutos.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Documents/NetBeansProjects/Practica-2_Grupo-1/src/vista/FrmRepuesto.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Documents/NetBeansProjects/Practica-2_Grupo-1/src/controlador/VendedorControllerListas.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Documents/NetBeansProjects/Practica-2_Grupo-1/src/controlador/AutoControllerListas.java</file>
+            <file>file:/C:/Users/alexg/OneDrive/Desktop/Documents/NetBeansProjects/Practica-2_Grupo-1/src/vista/FrmVentas.java</file>
             <file>file:/C:/Users/alexg/OneDrive/Desktop/Documents/NetBeansProjects/Practica-2_Grupo-1/src/vista/FrmVendedores.java</file>
+            <file>file:/C:/Users/alexg/OneDrive/Desktop/Documents/NetBeansProjects/Practica-2_Grupo-1/src/controlador/VentaControllerListas.java</file>
         </group>
     </open-files>
 </project-private>
