@@ -115,8 +115,8 @@ public class FrmVentas extends javax.swing.JDialog {
             UtilVista.cargarVendedor(cbxVendedorB);
             cbxAutoB.setVisible(false);
             cbxVendedorB.setVisible(false);
-            txtBusqueda.setVisible(true);
-            txtBusquedaFecha.setVisible(false);
+            txtBusqueda.setVisible(false);
+            txtBusquedaFecha.setVisible(true);
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }

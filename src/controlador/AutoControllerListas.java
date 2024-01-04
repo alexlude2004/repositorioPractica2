@@ -180,305 +180,8 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
         if (i < fin)
             quickSort(arreglo, i, fin, type, field);
     }
-    
+  
     //Metodo de Busqueda: BINARIA
-
-//    public LinkedList<Auto> buscarPrecioMayor(LinkedList<Auto> lista, String text, double precio) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        // You need to decide which Auto object you want to search for
-//        Auto clave = new Auto();
-////        int indice = busquedaBin(a, clave, comparator);
-//
-//        LinkedList<Auto> result = new LinkedList<>();
-//        if (indice != -1) {
-//            for (int i = indice; i < lo.size() && lo.get(i).getPrecio() >= precio; i++) {
-//                result.add(lo.get(i));
-//            }
-//
-//            for (int i = indice - 1; i >= 0 && lo.get(i).getPrecio() > precio; i--) {
-//                result.addFirst(lo.get(i));
-//            }
-//        }
-//        return result;
-//    }
-
-    public LinkedList<Auto> busquedaBinariaPrecioMayor(LinkedList<Auto> lista, String text, Double precio) throws Exception {
-        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-        Auto[] a = lo.toArray();
-        LinkedList<Auto> result = new LinkedList<>();
-        int left = 0;
-        int right = lo.getSize() - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (a[mid].getPrecio().doubleValue() > precio.doubleValue()) {
-                // Agrega el auto encontrado a la lista de resultados
-                result.add(a[mid]);
-                // Busca a la izquierda del punto medio
-                int temp = mid - 1;
-                while (temp >= 0 && a[temp].getPrecio().doubleValue() > precio.doubleValue()) {
-                    result.add(a[temp]);
-                    temp--;
-                }
-                // Busca a la derecha del punto medio
-                temp = mid + 1;
-                while (temp < a.length && a[temp].getPrecio().doubleValue() > precio.doubleValue()) {
-                    result.add(a[temp]);
-                    temp++;
-                }
-                break;
-            }
-            if (a[mid].getPrecio().doubleValue() <= precio.doubleValue()) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-        return result;
-    }
-
-
-//    public LinkedList<Auto> busquedaBinariaMarca(LinkedList<Auto> lista, String text, Marca marca) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        LinkedList<Auto> result = new LinkedList<>();
-//        int left = 0;
-//        int right = lo.getSize() - 1;
-//        while (left <= right) {
-//            int mid = left + (right - left) / 2;
-//            if (a[mid].getId_marca().equals(marca.getId())) {
-//                // Agrega el auto encontrado a la lista de resultados
-//                result.add(a[mid]);
-//                // Busca a la izquierda del punto medio
-//                int temp = mid - 1;
-//                while (temp >= 0 && a[temp].getId_marca().equals(marca.getId())) {
-//                    result.add(a[temp]);
-//                    temp--;
-//                }
-//                // Busca a la derecha del punto medio
-//                temp = mid + 1;
-//                while (temp < a.length && a[temp].getId_marca().equals(marca.getId())) {
-//                    result.add(a[temp]);
-//                    temp++;
-//                }
-//                break;
-//            }
-//            if (a[mid].getId_marca().compareTo(marca.getId()) < 0) {
-//                left = mid + 1;
-//            } else {
-//                right = mid - 1;
-//            }
-//        }
-//        return result;
-//    }
-
-    //Busqueda Binaria - Precio menor
-    public LinkedList<Auto> busquedaBinariaPrecioMenor(LinkedList<Auto> lista, String text, Double precio) throws Exception {
-        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-        Auto[] a = lo.toArray();
-        LinkedList<Auto> result = new LinkedList<>();
-        int left = 0;
-        int right = lo.getSize() - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (a[mid].getPrecio().doubleValue() < precio.doubleValue()) {
-                // Agrega el auto encontrado a la lista de resultados
-                result.add(a[mid]);
-                // Busca a la izquierda del punto medio
-                int temp = mid - 1;
-                while (temp >= 0 && a[temp].getPrecio().doubleValue() < precio.doubleValue()) {
-                    result.add(a[temp]);
-                    temp--;
-                }
-                // Busca a la derecha del punto medio
-                temp = mid + 1;
-                while (temp < a.length && a[temp].getPrecio().doubleValue() < precio.doubleValue()) {
-                    result.add(a[temp]);
-                    temp++;
-                }
-                break;
-            }
-            if (a[mid].getPrecio().doubleValue() >= precio.doubleValue()) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
-        }
-        return result;
-    }
-
-    public LinkedList<Auto> busquedaBinariaModelo(LinkedList<Auto> lista, String text, String modelo) throws Exception {
-        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-        Auto[] a = lo.toArray();
-        LinkedList<Auto> result = new LinkedList<>();
-        int left = 0;
-        int right = lo.getSize() - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (a[mid].getModelo().startsWith(modelo)) {
-                // Agrega el auto encontrado a la lista de resultados
-                result.add(a[mid]);
-                // Busca a la izquierda del punto medio
-                int temp = mid - 1;
-                while (temp >= 0 && (a[temp].getModelo().startsWith(modelo))) {
-                    result.add(a[temp]);
-                    temp--;
-                }
-                // Busca a la derecha del punto medio
-                temp = mid + 1;
-                while (temp < a.length && (a[temp].getModelo().startsWith(modelo))) {
-                    result.add(a[temp]);
-                    temp++;
-                }
-                break;
-            }
-            if (a[mid].getModelo().compareTo(modelo) < 0) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-        return result;
-    }
-
-//    public LinkedList<Auto> busquedaBinariaColor(LinkedList<Auto> lista, String text, String color) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        LinkedList<Auto> result = new LinkedList<>();
-//        int left = 0;
-//        int right = lo.getSize() - 1;
-//        while (left <= right) {
-//            int mid = left + (right - left) / 2;
-//            if (a[mid].getColor().startsWith(color)) {
-//                // Agrega el auto encontrado a la lista de resultados
-//                result.add(a[mid]);
-//                // Busca a la izquierda del punto medio
-//                int temp = mid - 1;
-//                while (temp >= 0 && (a[temp].getColor().startsWith(color))) {
-//                    result.add(a[temp]);
-//                    temp--;
-//                }
-//                // Busca a la derecha del punto medio
-//                temp = mid + 1;
-//                while (temp < a.length && (a[temp].getColor().startsWith(color))) {
-//                    result.add(a[temp]);
-//                    temp++;
-//                }
-//                break;
-//            }
-//            if (a[mid].getColor().compareTo(color) < 0) {
-//                left = mid + 1;
-//            } else {
-//                right = mid - 1;
-//            }
-//        }
-//        return result;
-//    }
-
-//    public LinkedList<Auto> busquedaBinariaMarca(LinkedList<Auto> lista, String text, Marca marca) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        LinkedList<Auto> result = new LinkedList<>();
-//        int inicio = 0;
-//        int fin = lo.getSize() - 1;
-//        while (inicio <= fin) {
-//            int medio = inicio + (fin - inicio) / 2;
-//            if (a[medio].getId_marca().equals(marca.getId())) {
-//                result.add(a[medio]);
-//                break;
-//            }
-//            if (a[medio].getId_marca().compareTo(marca.getId()) < 0) {
-//                inicio = medio + 1;
-//            } else {
-//                fin = medio - 1;
-//            }
-//        }
-//        return result;
-//    }
-//    
-//    public LinkedList<Auto> busquedaBinariaPrecio(LinkedList<Auto> lista, String text, Double precio) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        LinkedList<Auto> result = new LinkedList<>();
-//        int inicio = 0;
-//        int fin = lo.getSize() - 1;
-//        while (inicio <= fin) {
-//            int medio = inicio + (fin - inicio) / 2;
-//            if (a[medio].getPrecio().equals(precio)) {
-//                result.add(a[medio]);
-//                break;
-//            }
-//            if (a[medio].getPrecio().compareTo(precio) < 0) {
-//                inicio = medio + 1;
-//            } else {
-//                fin = medio - 1;
-//            }
-//        }
-//        return result;
-//    }
-//
-//    public LinkedList<Auto> busquedaBinariaModelo(LinkedList<Auto> lista, String text, String modelo) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        LinkedList<Auto> result = new LinkedList<>();
-//        int inicio = 0;
-//        int fin = lo.getSize() - 1;
-//        while (inicio <= fin) {
-//            int medio = inicio + (fin - inicio) / 2;
-//            if (a[medio].getModelo().equals(modelo)) {
-//                result.add(a[medio]);
-//                break;
-//            }
-//            if (a[medio].getModelo().compareTo(modelo) < 0) {
-//                inicio = medio + 1;
-//            } else {
-//                fin = medio - 1;
-//            }
-//        }
-//        return result;
-//    }
-//    
-//    public LinkedList<Auto> busquedaBinariaColor(LinkedList<Auto> lista, String text, String color) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        LinkedList<Auto> result = new LinkedList<>();
-//        int inicio = 0;
-//        int fin = lo.getSize() - 1;
-//        while (inicio <= fin) {
-//            int medio = inicio + (fin - inicio) / 2;
-//            if (a[medio].getColor().equals(color)) {
-//                result.add(a[medio]);
-//                break;
-//            }
-//            if (a[medio].getColor().compareTo(color) < 0) {
-//                inicio = medio + 1;
-//            } else {
-//                fin = medio - 1;
-//            }
-//        }
-//        return result;
-//    }   
-//    
-//    public LinkedList<Auto> busquedaBinariaAnio(LinkedList<Auto> lista, String text, Integer anio) throws Exception {
-//        LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
-//        Auto[] a = lo.toArray();
-//        LinkedList<Auto> result = new LinkedList<>();
-//        int inicio = 0;
-//        int fin = lo.getSize() - 1;
-//        while (inicio <= fin) {
-//            int medio = inicio + (fin - inicio) / 2;
-//            if (a[medio].getAnio().equals(anio)) {
-//                result.add(a[medio]);
-//                break;
-//            }
-//            if (a[medio].getAnio().compareTo(anio) < 0) {
-//                inicio = medio + 1;
-//            } else {
-//                fin = medio - 1;
-//            }
-//        }
-//        return result;
-//    }       
 
     public LinkedList<Auto> busquedaBinaria(LinkedList<Auto> lista, String text, Comparable clave, String tipo) throws Exception {
         LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
@@ -521,20 +224,76 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
         return result;
     }
 
-    
-    
      //Metodo de Busqueda: LINEAL BINARIA
     
-    public LinkedList<Auto> busquedaLinealBinaria(LinkedList<Auto> lista, String text, Double precio) throws Exception {
+    public LinkedList<Auto> busquedaLinealBinaria(LinkedList<Auto> lista, String text, Object clave, String tipo) throws Exception {
         LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
         Auto[] a = lo.toArray();
         LinkedList<Auto> result = new LinkedList<>();
-        for (int i = 0; i < lo.getSize(); i++) {
-            if (a[i].getPrecio().doubleValue() <= precio.doubleValue()) {
-                result.add(a[i]);
+        int inicio = 0;
+        int fin = lo.getSize() - 1;
+        while (inicio <= fin) {
+            int medio = inicio + (fin - inicio) / 2;
+            Comparable valorActual;
+            switch (tipo) {
+                case "marca":
+                    valorActual = a[medio].getId_marca();
+                    break;
+                case "precio":
+                    valorActual = a[medio].getPrecio();
+                    break;
+                case "modelo":
+                    valorActual = a[medio].getModelo();
+                    break;
+                case "color":
+                    valorActual = a[medio].getColor();
+                    break;
+                case "anio":
+                    valorActual = a[medio].getAnio();
+                    break;
+                default:
+                    throw new Exception("Tipo de búsqueda no válido");
+            }
+            if (valorActual.equals(clave)) {
+                result.add(a[medio]);
+                // Busca a la izquierda del punto medio
+                int temp = medio - 1;
+                while (temp >= 0 && ((Comparable) getValor(a[temp], tipo)).equals(clave)) {
+                    result.add(a[temp]);
+                    temp--;
+                }
+                // Busca a la derecha del punto medio
+                temp = medio + 1;
+                while (temp < a.length && ((Comparable) getValor(a[temp], tipo)).equals(clave)) {
+                    result.add(a[temp]);
+                    temp++;
+                }
+                break;
+            }
+            if (((Comparable) valorActual).compareTo(clave) < 0) {
+                inicio = medio + 1;
+            } else {
+                fin = medio - 1;
             }
         }
         return result;
+    }
+
+    private Comparable getValor(Auto auto, String tipo) {
+        switch (tipo) {
+            case "marca":
+                return auto.getId_marca();
+            case "precio":
+                return auto.getPrecio();
+            case "modelo":
+                return auto.getModelo();
+            case "color":
+                return auto.getColor();
+            case "anio":
+                return auto.getAnio();
+            default:
+                return null;
+        }
     }
 
 }
