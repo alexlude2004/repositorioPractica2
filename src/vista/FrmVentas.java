@@ -66,35 +66,60 @@ public class FrmVentas extends javax.swing.JDialog {
         System.out.println("\nMetodo de Ordenacion: " + metodo + "\nCritero: " + criterio + "\nTipo de Ordenamiento: " + tipoOrdenamiento + "\n");
         System.out.println("Tiempo de ejecucion " + metodo + ": " + timeElapsed + " nanosegundos");
         System.out.println("Tiempo de ejecucion " + metodo + ": " + timeElapsed/1e6 + " milisegundos");
-    } 
+    }  
 
     private void buscar() {
+        String metodo = cbxMetodoBusqueda.getSelectedItem().toString();
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
+        
         try {
-            if (criterio.equalsIgnoreCase("fecha")) {
-                String strDate = txtBusquedaFecha.getText();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd / MM / yy");
-                Date fecha = formatter.parse(strDate);
-                mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "fecha", fecha, criterio));
-            } else if (criterio.equalsIgnoreCase("codigo_venta")) {
-                String codigo = txtBusqueda.getText();
-                mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "codigo_venta", codigo, criterio));
-            } else if (criterio.equalsIgnoreCase("auto")) {
-                mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "id_auto", UtilVista.getComboAutos(cbxAutoB).getId(), criterio));
-            } else if (criterio.equalsIgnoreCase("vendedor")) {
-                mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "id_vendedor", UtilVista.getComboVendedores(cbxVendedorB).getId(), criterio));
+            String text = txtBusqueda.getText();
+            if (metodo.equalsIgnoreCase("binaria")) {
+                if (criterio.equalsIgnoreCase("fecha")) {
+                    String strDate = txtBusquedaFecha.getText();
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd / MM / yy");
+                    Date fecha = formatter.parse(strDate);
+                    mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "fecha", fecha, criterio));
+                    
+                } else if (criterio.equalsIgnoreCase("codigo_venta")) {
+                    String codigo = txtBusqueda.getText();
+                    mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "codigo_venta", codigo, criterio));
+                    
+                } else if (criterio.equalsIgnoreCase("auto")) {
+                    mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "id_auto", UtilVista.getComboAutos(cbxAutoB).getId(), criterio));
+                    
+                } else if (criterio.equalsIgnoreCase("vendedor")) {
+                    mtl.setVentas(vtl.busquedaBinaria(vtl.getVentas(), "id_vendedor", UtilVista.getComboVendedores(cbxVendedorB).getId(), criterio));
+                }
+                 
+            } else if (metodo.equalsIgnoreCase("linealbinaria")) {
+                if (criterio.equalsIgnoreCase("fecha")) {
+                    String strDate = txtBusquedaFecha.getText();
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd / MM / yy");
+                    Date fecha = formatter.parse(strDate);
+                    mtl.setVentas(vtl.busquedaLinealBinaria(vtl.getVentas(), "fecha", fecha, criterio));
+                    
+                } else if (criterio.equalsIgnoreCase("codigo_venta")) {
+                    String codigo = txtBusqueda.getText();
+                    mtl.setVentas(vtl.busquedaLinealBinaria(vtl.getVentas(), "codigo_venta", codigo, criterio));
+                    
+                } else if (criterio.equalsIgnoreCase("auto")) {
+                    mtl.setVentas(vtl.busquedaLinealBinaria(vtl.getVentas(), "id_auto", UtilVista.getComboAutos(cbxAutoB).getId(), criterio));
+                    
+                } else if (criterio.equalsIgnoreCase("vendedor")) {
+                    mtl.setVentas(vtl.busquedaLinealBinaria(vtl.getVentas(), "id_vendedor", UtilVista.getComboVendedores(cbxVendedorB).getId(), criterio));
+                }
             }
-            
             tblTabla.setModel(mtl);
             tblTabla.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    "Ingrese el texto a buscar",
+                    e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }      
-
+    }       
+    
     private void limpiar() {
         cargarTabla();
         txtFecha.setText(new  SimpleDateFormat("dd / MM / yy").format(new Date()));
@@ -103,6 +128,8 @@ public class FrmVentas extends javax.swing.JDialog {
         txtNro_Venta.setEnabled(false);
         txtMarca.setEnabled(false);
         txtPrecio.setEnabled(false);
+        txtBusqueda.setText("");
+        txtBusquedaFecha.setText("dd / MM / yy");
         vtl.setVenta(null);
         vtl.setVentas(new LinkedList<>());
         cargarTabla();
@@ -247,6 +274,8 @@ public class FrmVentas extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
         cbxVendedorB = new javax.swing.JComboBox<>();
         txtBusquedaFecha = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        cbxMetodoBusqueda = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -485,7 +514,7 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(10, 100, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         jPanel5.add(jLabel10, gridBagConstraints);
 
         btnOrdenar.setText("Ordenar");
@@ -515,7 +544,7 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 142;
+        gridBagConstraints.ipadx = 140;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(txtBusqueda, gridBagConstraints);
@@ -549,7 +578,6 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 134;
         jPanel5.add(cbxVendedorB, gridBagConstraints);
 
@@ -568,6 +596,25 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(txtBusquedaFecha, gridBagConstraints);
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setText("Metodo de Busqueda:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(jLabel12, gridBagConstraints);
+
+        cbxMetodoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BINARIA", "LINEALBINARIA" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 55;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(cbxMetodoBusqueda, gridBagConstraints);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.CENTER);
 
@@ -703,12 +750,14 @@ public class FrmVentas extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbxAuto;
     private javax.swing.JComboBox<String> cbxAutoB;
     private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxMetodoBusqueda;
     private javax.swing.JComboBox<String> cbxMetodoOrdenacion;
     private javax.swing.JComboBox<String> cbxVendedor;
     private javax.swing.JComboBox<String> cbxVendedorB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

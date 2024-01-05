@@ -53,40 +53,26 @@ public class FrmVendedores extends javax.swing.JDialog {
     }      
 
     private void buscar() {
+        String metodo = cbxMetodoBusqueda.getSelectedItem().toString();
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
+        
         try {
-            if (criterio.equalsIgnoreCase("dni")) {
-                String dni = txtBusqueda.getText();
-                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "dni", dni, criterio));
-            } else if (criterio.equalsIgnoreCase("ruc")) {
-                String ruc = txtBusqueda.getText();
-                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "ruc", ruc, criterio));                
-            } else if (criterio.equalsIgnoreCase("apellidos")) {
-                String apellidos = txtBusqueda.getText();
-                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "apellidos", apellidos, criterio));                        
-            } else if (criterio.equalsIgnoreCase("nombres")) {
-                String nombres = txtBusqueda.getText();
-                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "nombres", nombres, criterio));  
-            } else if (criterio.equalsIgnoreCase("direccion")) {
-                String direccion = txtBusqueda.getText();
-                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "direccion", direccion, criterio));                  
-            } else if (criterio.equalsIgnoreCase("telefono")) {
-                String telefono = txtBusqueda.getText();
-                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "telefono", telefono, criterio));  
-            } else if (criterio.equalsIgnoreCase("correo")) {
-                String correo = txtBusqueda.getText();
-                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), "correo", correo, criterio));  
+            String text = txtBusqueda.getText();
+            if (metodo.equalsIgnoreCase("binaria")) {
+                mtvl.setVendedores(vcl.busquedaBinaria(vcl.getVendedores(), criterio, text, criterio));
+                 
+            } else if (metodo.equalsIgnoreCase("linealbinaria")) {
+                mtvl.setVendedores(vcl.busquedaLinealBinaria(vcl.getVendedores(), criterio, text, criterio));
             }
-            
             tblTabla.setModel(mtvl);
             tblTabla.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    "Ingrese el texto a buscar",
+                    e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }       
+    }     
     
     private void limpiar() {
         cargarTabla();
@@ -97,6 +83,7 @@ public class FrmVendedores extends javax.swing.JDialog {
         txtDireccion.setText("");
         txtTelefono.setText("");
         txtCorreo.setText("");
+        txtBusqueda.setText("");
         vcl.setVendedor(null);
         vcl.setVendedores(new LinkedList<>());
         cargarTabla();
@@ -240,6 +227,8 @@ public class FrmVendedores extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        cbxMetodoBusqueda = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -475,7 +464,7 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(10, 100, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         jPanel5.add(jLabel10, gridBagConstraints);
 
         btnOrdenar.setText("Ordenar");
@@ -521,6 +510,25 @@ public class FrmVendedores extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnBuscar, gridBagConstraints);
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setText("Metodo de Busqueda:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(jLabel11, gridBagConstraints);
+
+        cbxMetodoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BINARIA", "LINEALBINARIA" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 55;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(cbxMetodoBusqueda, gridBagConstraints);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.CENTER);
 
@@ -609,9 +617,11 @@ public class FrmVendedores extends javax.swing.JDialog {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxAscDesc;
     private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxMetodoBusqueda;
     private javax.swing.JComboBox<String> cbxMetodoOrdenacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

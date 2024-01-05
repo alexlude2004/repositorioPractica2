@@ -184,7 +184,7 @@ public class VentaControllerListas extends DataAccessObject<Venta> {
             quickSort(arreglo, i, fin, type, field);  // Llamar a QuickSort para esa parte
     }
 
-    public LinkedList<Venta> busquedaBinaria(LinkedList<Venta> lista, String text, Comparable clave, String tipo) throws Exception {
+    public LinkedList<Venta> busquedaBinaria(LinkedList<Venta> lista, String text, Object clave, String tipo) throws Exception {
         LinkedList<Venta> lo = this.ordenar(0, text, lista, "quicksort");
         Venta[] v = lo.toArray();
         LinkedList<Venta> result = new LinkedList<>();
@@ -192,7 +192,7 @@ public class VentaControllerListas extends DataAccessObject<Venta> {
         int fin = lo.getSize() - 1;
         while (inicio <= fin) {
             int medio = inicio + (fin - inicio) / 2;
-            Comparable valorActual;
+            Object valorActual;
             switch (tipo) {
                 case "fecha":
                     valorActual = v[medio].getFecha();
@@ -213,12 +213,74 @@ public class VentaControllerListas extends DataAccessObject<Venta> {
                 result.add(v[medio]);
                 break;
             }
-            if (valorActual.compareTo(clave) < 0) {
-                inicio = medio + 1;
+            if (valorActual instanceof Integer) {
+                if ((Integer) valorActual < (Integer) clave) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
+            } else if (valorActual instanceof String) {
+                if (((String) valorActual).compareTo((String) clave) < 0) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
             } else {
-                fin = medio - 1;
+                throw new Exception("Tipo de clave no soportado");
             }
         }
         return result;
+    }   
+    
+     //Metodo de Busqueda: LINEAL BINARIA
+    
+    public LinkedList<Venta> busquedaLinealBinaria(LinkedList<Venta> lista, String text, Object clave, String tipo) throws Exception {
+        LinkedList<Venta> lo = this.ordenar(0, text, lista, "quicksort");
+        Venta[] v = lo.toArray();
+        LinkedList<Venta> result = new LinkedList<>();
+        int inicio = 0;
+        int fin = lo.getSize() - 1;
+        int medio = -1;
+
+        for (int i = 0; i < v.length; i++) {
+            Object valorActual = getValor(v[i], tipo);
+            if (valorActual.equals(clave)) {
+                medio = i;
+                result.add(v[i]);
+                break;
+            }
+        }
+
+        if (medio != -1) {
+            int temp = medio - 1;
+            while (temp >= 0 && getValor(v[temp], tipo).equals(clave)) {
+                result.add(v[temp]);
+                temp--;
+            }
+
+            temp = medio + 1;
+            while (temp < v.length && getValor(v[temp], tipo).equals(clave)) {
+                result.add(v[temp]);
+                temp++;
+            }
+        }
+
+        return result;
+    }  
+
+    private Object getValor(Venta venta, String tipo) {
+        switch (tipo) {
+            case "fecha":
+                return venta.getFecha();
+            case "codigo_venta":
+                return venta.getCodigo_venta();
+            case "auto":
+                return venta.getId_auto();
+            case "vendedor":
+                return venta.getId_vendedor();            
+            default:
+                return null;
+        }
     }    
+        
 }

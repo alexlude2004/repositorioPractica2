@@ -4,7 +4,6 @@ package vista;
 import controlador.AutoControllerListas;
 import controlador.MarcaControllerListas;
 import controlador.TDA.listas.LinkedList;
-import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import vista.listas.tablas.ModeloTablaAutoListas;
 import vista.listas.util.UtilVista;
@@ -64,34 +63,43 @@ public class FrmAutos extends javax.swing.JDialog {
                  if (criterio.equalsIgnoreCase("precio")) {
                     Double precio = Double.parseDouble(txtBusqueda.getText()); 
                     mtal.setAutos(acl.busquedaBinaria(acl.getAutos(), "precio", precio, criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("marca")) {
                     mtal.setAutos(acl.busquedaBinaria(acl.listAll(), "id_marca", UtilVista.getComboMarcas(cbxMarcaB).getId(), criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("modelo")) {
                     String text = txtBusqueda.getText();
                     String modelo = text.toUpperCase();
                     mtal.setAutos(acl.busquedaBinaria(acl.getAutos(), "modelo", modelo, criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("color")) {
                     String text = txtBusqueda.getText();
                     String color = Character.toUpperCase(text.charAt(0)) + text.substring(1);
                     mtal.setAutos(acl.busquedaBinaria(acl.getAutos(), "color", color, criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("anio")) {
                     Integer anio = Integer.parseInt(txtBusqueda.getText());
                     mtal.setAutos(acl.busquedaBinaria(acl.getAutos(), "anio", anio, criterio));
                 }
+                 
             } else if (metodo.equalsIgnoreCase("linealbinaria")) {
                 if (criterio.equalsIgnoreCase("precio")) {
                     Double precio = Double.parseDouble(txtBusqueda.getText()); 
                     mtal.setAutos(acl.busquedaLinealBinaria(acl.getAutos(), "precio", precio, criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("marca")) {
                     mtal.setAutos(acl.busquedaLinealBinaria(acl.listAll(), "id_marca", UtilVista.getComboMarcas(cbxMarcaB).getId(), criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("modelo")) {
                     String text = txtBusqueda.getText();
                     String modelo = text.toUpperCase();
                     mtal.setAutos(acl.busquedaLinealBinaria(acl.getAutos(), "modelo", modelo, criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("color")) {
                     String text = txtBusqueda.getText();
                     String color = Character.toUpperCase(text.charAt(0)) + text.substring(1);
                     mtal.setAutos(acl.busquedaLinealBinaria(acl.getAutos(), "color", color, criterio));
+                    
                 } else if (criterio.equalsIgnoreCase("anio")) {
                     Integer anio = Integer.parseInt(txtBusqueda.getText());
                     mtal.setAutos(acl.busquedaLinealBinaria(acl.getAutos(), "anio", anio, criterio));
@@ -112,6 +120,7 @@ public class FrmAutos extends javax.swing.JDialog {
         txtAnio.setText("");
         txtPrecio.setText("");
         txtModelo.setText("");
+        txtBusqueda.setText("");
         acl.setAuto(null);
         acl.setAutos(new LinkedList<>());
         cargarTabla();

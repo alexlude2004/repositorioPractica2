@@ -168,7 +168,7 @@ public class VendedorControllerListas extends DataAccessObject<Vendedor> {
             quickSort(arreglo, i, fin, type, field);
     }
     
-    public LinkedList<Vendedor> busquedaBinaria(LinkedList<Vendedor> lista, String text, Comparable clave, String tipo) throws Exception {
+    public LinkedList<Vendedor> busquedaBinaria(LinkedList<Vendedor> lista, String text, Object clave, String tipo) throws Exception {
         LinkedList<Vendedor> lo = this.ordenar(0, text, lista, "quicksort");
         Vendedor[] v = lo.toArray();
         LinkedList<Vendedor> result = new LinkedList<>();
@@ -176,7 +176,7 @@ public class VendedorControllerListas extends DataAccessObject<Vendedor> {
         int fin = lo.getSize() - 1;
         while (inicio <= fin) {
             int medio = inicio + (fin - inicio) / 2;
-            Comparable valorActual;
+            Object valorActual;
             switch (tipo) {
                 case "dni":
                     valorActual = v[medio].getDni();
@@ -206,13 +206,80 @@ public class VendedorControllerListas extends DataAccessObject<Vendedor> {
                 result.add(v[medio]);
                 break;
             }
-            if (valorActual.compareTo(clave) < 0) {
-                inicio = medio + 1;
+            if (valorActual instanceof Integer) {
+                if ((Integer) valorActual < (Integer) clave) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
+            } else if (valorActual instanceof String) {
+                if (((String) valorActual).compareTo((String) clave) < 0) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
             } else {
-                fin = medio - 1;
+                throw new Exception("Tipo de clave no soportado");
             }
         }
         return result;
     }
+
+     //Metodo de Busqueda: LINEAL BINARIA
+    
+    public LinkedList<Vendedor> busquedaLinealBinaria(LinkedList<Vendedor> lista, String text, Object clave, String tipo) throws Exception {
+        LinkedList<Vendedor> lo = this.ordenar(0, text, lista, "quicksort");
+        Vendedor[] v = lo.toArray();
+        LinkedList<Vendedor> result = new LinkedList<>();
+        int inicio = 0;
+        int fin = lo.getSize() - 1;
+        int medio = -1;
+
+        for (int i = 0; i < v.length; i++) {
+            Object valorActual = getValor(v[i], tipo);
+            if (valorActual.equals(clave)) {
+                medio = i;
+                result.add(v[i]);
+                break;
+            }
+        }
+
+        if (medio != -1) {
+            int temp = medio - 1;
+            while (temp >= 0 && getValor(v[temp], tipo).equals(clave)) {
+                result.add(v[temp]);
+                temp--;
+            }
+
+            temp = medio + 1;
+            while (temp < v.length && getValor(v[temp], tipo).equals(clave)) {
+                result.add(v[temp]);
+                temp++;
+            }
+        }
+
+        return result;
+    }  
+
+    private Object getValor(Vendedor vendedor, String tipo) {
+        switch (tipo) {
+            case "dni":
+                return vendedor.getDni();
+            case "ruc":
+                return vendedor.getRuc();
+            case "apellidos":
+                return vendedor.getApellidos();
+            case "nombres":
+                return vendedor.getNombres();
+            case "direccion":
+                return vendedor.getDireccion();
+            case "telefono":
+                return vendedor.getTelefono();
+            case "correo":
+                return vendedor.getCorreo();                
+            default:
+                return null;
+        }
+    }    
     
 }

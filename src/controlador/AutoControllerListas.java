@@ -183,7 +183,7 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
   
     //Metodo de Busqueda: BINARIA
 
-    public LinkedList<Auto> busquedaBinaria(LinkedList<Auto> lista, String text, Comparable clave, String tipo) throws Exception {
+    public LinkedList<Auto> busquedaBinaria(LinkedList<Auto> lista, String text, Object clave, String tipo) throws Exception {
         LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
         Auto[] a = lo.toArray();
         LinkedList<Auto> result = new LinkedList<>();
@@ -191,7 +191,7 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
         int fin = lo.getSize() - 1;
         while (inicio <= fin) {
             int medio = inicio + (fin - inicio) / 2;
-            Comparable valorActual;
+            Object valorActual;
             switch (tipo) {
                 case "marca":
                     valorActual = a[medio].getId_marca();
@@ -215,71 +215,63 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
                 result.add(a[medio]);
                 break;
             }
-            if (valorActual.compareTo(clave) < 0) {
-                inicio = medio + 1;
+            if (valorActual instanceof Integer) {
+                if ((Integer) valorActual < (Integer) clave) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
+            } else if (valorActual instanceof String) {
+                if (((String) valorActual).compareTo((String) clave) < 0) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
             } else {
-                fin = medio - 1;
+                throw new Exception("Tipo de clave no soportado");
             }
         }
         return result;
     }
 
+
      //Metodo de Busqueda: LINEAL BINARIA
-    
+
     public LinkedList<Auto> busquedaLinealBinaria(LinkedList<Auto> lista, String text, Object clave, String tipo) throws Exception {
         LinkedList<Auto> lo = this.ordenar(0, text, lista, "quicksort");
         Auto[] a = lo.toArray();
         LinkedList<Auto> result = new LinkedList<>();
         int inicio = 0;
         int fin = lo.getSize() - 1;
-        while (inicio <= fin) {
-            int medio = inicio + (fin - inicio) / 2;
-            Comparable valorActual;
-            switch (tipo) {
-                case "marca":
-                    valorActual = a[medio].getId_marca();
-                    break;
-                case "precio":
-                    valorActual = a[medio].getPrecio();
-                    break;
-                case "modelo":
-                    valorActual = a[medio].getModelo();
-                    break;
-                case "color":
-                    valorActual = a[medio].getColor();
-                    break;
-                case "anio":
-                    valorActual = a[medio].getAnio();
-                    break;
-                default:
-                    throw new Exception("Tipo de búsqueda no válido");
-            }
+        int medio = -1;
+
+        for (int i = 0; i < a.length; i++) {
+            Object valorActual = getValor(a[i], tipo);
             if (valorActual.equals(clave)) {
-                result.add(a[medio]);
-                // Busca a la izquierda del punto medio
-                int temp = medio - 1;
-                while (temp >= 0 && ((Comparable) getValor(a[temp], tipo)).equals(clave)) {
-                    result.add(a[temp]);
-                    temp--;
-                }
-                // Busca a la derecha del punto medio
-                temp = medio + 1;
-                while (temp < a.length && ((Comparable) getValor(a[temp], tipo)).equals(clave)) {
-                    result.add(a[temp]);
-                    temp++;
-                }
+                medio = i;
+                result.add(a[i]);
                 break;
             }
-            if (((Comparable) valorActual).compareTo(clave) < 0) {
-                inicio = medio + 1;
-            } else {
-                fin = medio - 1;
+        }
+
+        if (medio != -1) {
+            int temp = medio - 1;
+            while (temp >= 0 && getValor(a[temp], tipo).equals(clave)) {
+                result.add(a[temp]);
+                temp--;
+            }
+
+            temp = medio + 1;
+            while (temp < a.length && getValor(a[temp], tipo).equals(clave)) {
+                result.add(a[temp]);
+                temp++;
             }
         }
-        return result;
-    }
 
-    private Comparable getValor(Auto auto, String tipo) {
+        return result;
+    }    
+    
+    private Object getValor(Auto auto, String tipo) {
         switch (tipo) {
             case "marca":
                 return auto.getId_marca();
@@ -295,5 +287,4 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
                 return null;
         }
     }
-
 }
