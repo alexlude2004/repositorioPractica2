@@ -118,7 +118,7 @@ public class FrmVentas extends javax.swing.JDialog {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }       
+    }          
     
     private void limpiar() {
         cargarTabla();
@@ -554,8 +554,7 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 134;
+        gridBagConstraints.ipadx = 130;
         jPanel5.add(cbxAutoB, gridBagConstraints);
 
         btnBuscar.setText("Buscar");
@@ -578,7 +577,7 @@ public class FrmVentas extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 134;
+        gridBagConstraints.ipadx = 100;
         jPanel5.add(cbxVendedorB, gridBagConstraints);
 
         txtBusquedaFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -671,17 +670,20 @@ public class FrmVentas extends javax.swing.JDialog {
             txtBusquedaFecha.setVisible(false);
             cbxAutoB.setVisible(true);
             cbxVendedorB.setVisible(false);
+            
         } else if (evt.getItem().toString().equalsIgnoreCase("VENDEDOR")) {
             txtBusqueda.setVisible(false);
             txtBusquedaFecha.setVisible(false);
             cbxAutoB.setVisible(false);
             cbxVendedorB.setVisible(true);            
+            
         } else if (evt.getItem().toString().equalsIgnoreCase("FECHA")) {
             txtBusqueda.setVisible(false);
             txtBusquedaFecha.setVisible(true);
             txtBusquedaFecha.setText("dd / MM / yy");
             cbxAutoB.setVisible(false);
-            cbxVendedorB.setVisible(false);            
+            cbxVendedorB.setVisible(false);         
+            
         } else {
             txtBusqueda.setVisible(true);
             txtBusquedaFecha.setVisible(false);

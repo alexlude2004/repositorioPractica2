@@ -167,6 +167,8 @@ public class VendedorControllerListas extends DataAccessObject<Vendedor> {
         if (i < fin)
             quickSort(arreglo, i, fin, type, field);
     }
+
+    //Metodo de Busqueda: BINARIA
     
     public LinkedList<Vendedor> busquedaBinaria(LinkedList<Vendedor> lista, String text, Object clave, String tipo) throws Exception {
         LinkedList<Vendedor> lo = this.ordenar(0, text, lista, "quicksort");

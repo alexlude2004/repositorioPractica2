@@ -5,6 +5,9 @@ import controlador.TDA.listas.LinkedList;
 import controlador.autos.dao.DataAccessObject;
 import controlador.util.Utilidades;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import modelo.Marca;
 import modelo.Venta;
 
 /**
@@ -184,6 +187,8 @@ public class VentaControllerListas extends DataAccessObject<Venta> {
             quickSort(arreglo, i, fin, type, field);  // Llamar a QuickSort para esa parte
     }
 
+    //Metodo de Busqueda: BINARIA    
+    
     public LinkedList<Venta> busquedaBinaria(LinkedList<Venta> lista, String text, Object clave, String tipo) throws Exception {
         LinkedList<Venta> lo = this.ordenar(0, text, lista, "quicksort");
         Venta[] v = lo.toArray();
@@ -225,12 +230,18 @@ public class VentaControllerListas extends DataAccessObject<Venta> {
                 } else {
                     fin = medio - 1;
                 }
+            } else if (valorActual instanceof Date) {
+                if (((Date) valorActual).compareTo((Date) clave) < 0) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
             } else {
                 throw new Exception("Tipo de clave no soportado");
             }
         }
         return result;
-    }   
+    }
     
      //Metodo de Busqueda: LINEAL BINARIA
     

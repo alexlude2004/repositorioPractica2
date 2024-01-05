@@ -138,6 +138,91 @@ public class MarcaControllerListas extends DataAccessObject<Marca> {
         if (i < fin)
             quickSort(arreglo, i, fin, type, field);
     }
+    
+    public LinkedList<Marca> busquedaBinaria(LinkedList<Marca> lista, String text, Object clave, String tipo) throws Exception {
+        LinkedList<Marca> lo = this.ordenar(0, text, lista, "quicksort");
+        Marca[] m = lo.toArray();
+        LinkedList<Marca> result = new LinkedList<>();
+        int inicio = 0;
+        int fin = lo.getSize() - 1;
+        while (inicio <= fin) {
+            int medio = inicio + (fin - inicio) / 2;
+            Object valorActual;
+            switch (tipo) {
+                case "marca":
+                    valorActual = m[medio].getNombre();
+                    break;
+                default:
+                    throw new Exception("Tipo de búsqueda no válido");
+            }
+            if (valorActual.equals(clave)) {
+                result.add(m[medio]);
+                break;
+            }
+            if (valorActual instanceof Integer) {
+                if ((Integer) valorActual < (Integer) clave) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
+            } else if (valorActual instanceof String) {
+                if (((String) valorActual).compareTo((String) clave) < 0) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
+            } else {
+                throw new Exception("Tipo de clave no soportado");
+            }
+        }
+        return result;
+    }
+
+
+     //Metodo de Busqueda: LINEAL BINARIA
+
+    public LinkedList<Marca> busquedaLinealBinaria(LinkedList<Marca> lista, String text, Object clave, String tipo) throws Exception {
+        LinkedList<Marca> lo = this.ordenar(0, text, lista, "quicksort");
+        Marca[] m = lo.toArray();
+        LinkedList<Marca> result = new LinkedList<>();
+        int inicio = 0;
+        int fin = lo.getSize() - 1;
+        int medio = -1;
+
+        for (int i = 0; i < m.length; i++) {
+            Object valorActual = getValor(m[i], tipo);
+            if (valorActual.equals(clave)) {
+                medio = i;
+                result.add(m[i]);
+                break;
+            }
+        }
+
+        if (medio != -1) {
+            int temp = medio - 1;
+            while (temp >= 0 && getValor(m[temp], tipo).equals(clave)) {
+                result.add(m[temp]);
+                temp--;
+            }
+
+            temp = medio + 1;
+            while (temp < m.length && getValor(m[temp], tipo).equals(clave)) {
+                result.add(m[temp]);
+                temp++;
+            }
+        }
+
+        return result;
+    }    
+    
+    private Object getValor(Marca marca, String tipo) {
+        switch (tipo) {
+            case "marca":
+                return marca.getNombre();
+            default:
+                return null;
+        }
+    }    
 
     public static void main(String[] args) {
         MarcaControllerListas mcl = new MarcaControllerListas();

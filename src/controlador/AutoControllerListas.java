@@ -2,12 +2,10 @@
 package controlador;
 
 import controlador.TDA.listas.LinkedList;
-import controlador.TDA.listas.exception.VacioException;
 import controlador.autos.dao.DataAccessObject;
 import controlador.util.Utilidades;
 import java.lang.reflect.Field;
 import modelo.Auto;
-import modelo.Marca;
 
 /**
  *
@@ -227,13 +225,18 @@ public class AutoControllerListas extends DataAccessObject<Auto> {
                 } else {
                     fin = medio - 1;
                 }
+            } else if (valorActual instanceof Double) {
+                if ((Double) valorActual < (Double) clave) {
+                    inicio = medio + 1;
+                } else {
+                    fin = medio - 1;
+                }
             } else {
                 throw new Exception("Tipo de clave no soportado");
             }
         }
         return result;
     }
-
 
      //Metodo de Busqueda: LINEAL BINARIA
 
