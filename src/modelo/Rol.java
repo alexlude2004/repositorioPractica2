@@ -5,15 +5,23 @@ package modelo;
  * @author Asus
  */
 public class Rol {
+    private Integer id;
     private String nombre;
-    private Boolean estado;
 
     public Rol() {
     }
 
-    public Rol(String nombre, Boolean estado) {
+    public Rol(Integer id, String nombre) {
+        this.id = id;
         this.nombre = nombre;
-        this.estado = estado;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -24,13 +32,5 @@ public class Rol {
         this.nombre = nombre;
     }
 
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-    
     
 }

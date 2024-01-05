@@ -132,12 +132,12 @@ public class MateriaControllerListas extends DataAccessObject<Materia>{
 
     //Busqueda Lineal
     
-    public LinkedList<Materia> buscarNombre(LinkedList<Materia> lista, String text, String materia) throws Exception {
+    public LinkedList<Materia> buscar(LinkedList<Materia> lista, String text, Object clave) throws Exception {
         LinkedList<Materia> lo = this.quickSort(0, text, lista);
         Materia[] m = lo.toArray();
         LinkedList<Materia> result = new LinkedList<>();
         for (int i = 0; i < lo.getSize(); i++) {
-            if (m[i].getNombre().toLowerCase().startsWith(materia)) {
+            if (m[i].getNombre().toLowerCase().startsWith((String) clave) || m[i].getId_curso().equals(clave)) {
                 result.add(m[i]);
             }
         }

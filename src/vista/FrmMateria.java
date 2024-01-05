@@ -18,8 +18,7 @@ public class FrmMateria extends javax.swing.JDialog {
     /**
      * Creates new form FrmAutos
      */
-    public FrmMateria(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FrmMateria() {
         initComponents();
         setLocationRelativeTo(null);
         
@@ -44,7 +43,7 @@ public class FrmMateria extends javax.swing.JDialog {
     private void buscar() {
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
         try {
-            mtml.setMaterias(mcl.buscarNombre(mcl.getMaterias(), criterio, txtBusqueda.getText()));
+            mtml.setMaterias(mcl.buscar(mcl.getMaterias(), criterio, txtBusqueda.getText()));
             tblTabla.setModel(mtml);
             tblTabla.updateUI();
         } catch (Exception e) {
@@ -84,6 +83,7 @@ public class FrmMateria extends javax.swing.JDialog {
         if (validar()) {
             try {
                 mcl.getMateria().setNombre(txtNombre.getText());
+                mcl.getMateria().setId_curso(cbxCurso.getSelectedIndex());
                 
                 if (mcl.getMateria().getId() == null) {
                     if (mcl.save()) {
@@ -162,6 +162,8 @@ public class FrmMateria extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        cbxCurso = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTabla = new javax.swing.JTable();
@@ -189,7 +191,7 @@ public class FrmMateria extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(btnGuardar, gridBagConstraints);
 
@@ -201,7 +203,7 @@ public class FrmMateria extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(btnCancelar, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -221,6 +223,25 @@ public class FrmMateria extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel3.add(jLabel6, gridBagConstraints);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("Curso:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(jLabel7, gridBagConstraints);
+
+        cbxCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(cbxCurso, gridBagConstraints);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
@@ -289,7 +310,7 @@ public class FrmMateria extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(jLabel9, gridBagConstraints);
 
-        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOMBRE", "ID" }));
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOMBRE", "CURSO" }));
         cbxCriterio.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbxCriterioItemStateChanged(evt);
@@ -343,7 +364,7 @@ public class FrmMateria extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
         );
 
         pack();
@@ -406,18 +427,19 @@ public class FrmMateria extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the dialog */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmMateria dialog = new FrmMateria(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new FrmMateria().setVisible(true);
             }
         });
     }
@@ -429,7 +451,9 @@ public class FrmMateria extends javax.swing.JDialog {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxAscDesc;
     private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxCurso;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

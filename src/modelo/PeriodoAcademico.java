@@ -7,27 +7,29 @@ import java.util.Date;
  * @author Asus
  */
 public class PeriodoAcademico {
-    private Integer id_malla;
+    private Integer id;
     private String nombre;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private Date fechaDesde;
+    private Date fechaHasta;
+    private Boolean estado;
 
     public PeriodoAcademico() {
     }
 
-    public PeriodoAcademico(Integer id_malla, String nombre, Date fechaInicio, Date fechaFin) {
-        this.id_malla = id_malla;
+    public PeriodoAcademico(Integer id, String nombre, Date fechaDesde, Date fechaHasta, Boolean estado) {
+        this.id = id;
         this.nombre = nombre;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+        this.fechaDesde = fechaDesde;
+        this.fechaHasta = fechaHasta;
+        this.estado = estado;
     }
 
-    public Integer getId_malla() {
-        return id_malla;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_malla(Integer id_malla) {
-        this.id_malla = id_malla;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -38,21 +40,29 @@ public class PeriodoAcademico {
         this.nombre = nombre;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
+    public Date getFechaDesde() {
+        return fechaDesde;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFechaDesde(Date fechaDesde) {
+        this.fechaDesde = fechaDesde;
     }
 
-    public Date getFechaFin() {
-        return fechaFin;
+    public Date getFechaHasta() {
+        return fechaHasta;
     }
 
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
+    public void setFechaHasta(Date fechaHasta) {
+        this.fechaHasta = fechaHasta;
     }
-    
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
     
 }

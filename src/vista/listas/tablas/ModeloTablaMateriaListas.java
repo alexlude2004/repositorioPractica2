@@ -69,4 +69,3 @@ public class ModeloTablaMateriaListas extends AbstractTableModel{
     }
     
 }
-

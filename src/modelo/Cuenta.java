@@ -5,6 +5,7 @@ package modelo;
  * @author Asus
  */
 public class Cuenta {
+    private Integer id;
     private String correo;
     private String clave;
     private Boolean estado;
@@ -12,11 +13,24 @@ public class Cuenta {
     public Cuenta() {
     }
 
-    public Cuenta(String correo, String clave, Boolean estado) {
+    public Cuenta(Integer id, String correo, String clave, Boolean estado) {
+        this.id = id;
         this.correo = correo;
         this.clave = clave;
         this.estado = estado;
+        //Comentario en rama Bayron
+        System.out.println("Cosas por borrar");
+        System.out.println("Cosas por borrar 2");
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
 
     public String getCorreo() {
         return correo;

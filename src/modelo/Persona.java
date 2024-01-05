@@ -1,30 +1,41 @@
 package modelo;
+import java.util.Date;
 
 /**
  *
  * @author Asus
  */
 public class Persona {
+    private Integer id;
     private String nombres;
     private String apellidos;
-    private String cedula;
     private String nacionalidad;
-    private Integer edad;
+    private Date fecha_nac;
+    private String cedula;
     private String telefono;
     
 
     public Persona() {
     }
 
-    public Persona(String nombres, String apellidos, String cedula, String nacionalidad, Integer edad, String telefono) {
+    public Persona(Integer id, String nombres, String apellidos, String nacionalidad, Date fecha_nac, String cedula, String telefono) {
+        this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.cedula = cedula;
         this.nacionalidad = nacionalidad;
-        this.edad = edad;
+        this.fecha_nac = fecha_nac;
+        this.cedula = cedula;
         this.telefono = telefono;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public String getNombres() {
         return nombres;
     }
@@ -57,13 +68,15 @@ public class Persona {
         this.nacionalidad = nacionalidad;
     }
 
-    public Integer getEdad() {
-        return edad;
+    public Date getFecha_nac() {
+        return fecha_nac;
     }
 
-    public void setEdad(Integer edad) {
-        this.edad = edad;
+    public void setFecha_nac(Date fecha_nac) {
+        this.fecha_nac = fecha_nac;
     }
+
+    
 
     public String getTelefono() {
         return telefono;
