@@ -5,8 +5,6 @@ import com.thoughtworks.xstream.XStream;
 import controlador.TDA.listas.LinkedList;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

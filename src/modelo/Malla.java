@@ -25,7 +25,58 @@ public class Malla {
         this.fecha_Creacion = fecha_Creacion;
         this.estado = estado;
     }
+    
+    public Boolean comparar(Malla c, String field, Integer type) {
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() > c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("nombre")) {
+                    return  getNombre().compareTo(c.getNombre()) > 0;
+                }
+                else if (field.equalsIgnoreCase("cod_resolucion")) {
+                    return getCod_resolucion().compareTo(c.getCod_resolucion()) > 0;
+                }
+                else if (field.equalsIgnoreCase("modalidad")) {
+                    return getModalidad().compareTo(c.getModalidad()) > 0;
+                }
+                else if (field.equalsIgnoreCase("fecha_Creacion")) {
+                    return getFecha_Creacion().after(c.getFecha_Creacion());
+                }
+                else if (field.equalsIgnoreCase("estado")) {
+                    return getEstado().compareTo(c.getEstado()) > 0;
+                }
+                
+            case 0:
+                if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() < c.getId().intValue();
+                } 
+                else if (field.equalsIgnoreCase("nombre")) {
+                    return  getNombre().compareTo(c.getNombre()) < 0;
+                }
+                else if (field.equalsIgnoreCase("cod_resolucion")) {
+                    return getCod_resolucion().compareTo(c.getCod_resolucion()) < 0;
+                }
+                else if (field.equalsIgnoreCase("modalidad")) {
+                    return getModalidad().compareTo(c.getModalidad()) < 0;
+                }
+                else if (field.equalsIgnoreCase("fecha_Creacion")) {
+                    return getFecha_Creacion().before(c.getFecha_Creacion());
+                }
+                else if (field.equalsIgnoreCase("estado")) {
+                    return getEstado().compareTo(c.getEstado()) < 0;
+                }             
+            default:
+                return null;
+        }
+    }    
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -74,5 +125,4 @@ public class Malla {
         this.nombre = nombre;
     }
 
-    
 }

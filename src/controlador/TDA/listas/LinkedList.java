@@ -1,7 +1,7 @@
 
 package controlador.TDA.listas;
 
-import controlador.TDA.listas.exception.VacioException;
+import controlador.TDALista.exceptions.VacioException;
 
 /**
  *

@@ -6,6 +6,7 @@ import controlador.pis.dao.DataAccessObject;
 import controlador.util.Utilidades;
 import java.lang.reflect.Field;
 import modelo.Curso;
+import modelo.Malla;
 
 /**
  *
@@ -155,4 +156,17 @@ public class CursoControllerListas extends DataAccessObject<Curso>{
         }
         return result;
     }
+    
+    public LinkedList<Curso> buscarMalla(LinkedList<Curso> lista, String text, Malla malla) throws Exception {
+        LinkedList<Curso> lo = this.quickSort(0, text, lista);
+        Curso[] c = lo.toArray();
+        LinkedList<Curso> result = new LinkedList<>();
+        for (int i = 0; i < lo.getSize(); i++) {
+            if (c[i].getId_malla().equals(malla.getId())) {
+                result.add(c[i]);
+            }
+        }
+        return result;
+    }
+    
 }

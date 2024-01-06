@@ -1,9 +1,11 @@
 
 package vista.listas.tablas;
 
+import controlador.MallaControllerListas;
 import controlador.TDA.listas.LinkedList;
 import javax.swing.table.AbstractTableModel;
 import modelo.Curso;
+import modelo.Malla;
 
 /**
  *
@@ -20,21 +22,24 @@ public class ModeloTablaCursoListas extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Curso curso = null;
         try {
-            curso = getCursos().get(rowIndex);
+            curso = cursos.get(rowIndex);
+            Malla malla = new MallaControllerListas().getMallas().get(curso.getId_malla() - 1);
             switch (columnIndex) {
                 case 0:
                     return (curso != null) ? curso.getId() : "";
                 case 1:
                     return (curso != null) ? curso.getCiclo() : "";    
                 case 2:
-                    return (curso != null) ? curso.getParalelo(): "";
+                    return (curso != null) ? curso.getParalelo() : "";
+                case 3:
+                    return (curso != null) ? malla.toString() : "";
                 default:
                     return null;
             }
@@ -53,6 +58,8 @@ public class ModeloTablaCursoListas extends AbstractTableModel{
                 return "Ciclo";   
             case 2:
                 return "Paralelo";
+            case 3:
+                return "Malla";
             default:
                 return null;
         }

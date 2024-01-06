@@ -54,6 +54,11 @@ public class Curso {
         }
     }        
 
+    @Override
+    public String toString() {
+        return ciclo.toString();
+    }
+
     public Integer getId() {
         return id;
     }

@@ -1,0 +1,1 @@
+{"controlador.TDA.listas.LinkedList":{"head":{"data":{"@class":"modelo.Materia","id":1,"id_curso":2,"nombre":"Ingenieria maincraftera"},"next":{"data":{"@class":"modelo.Materia","id":2,"id_curso":2,"nombre":"aeronautica"}}},"last":{"@reference":"..\/head\/next"},"size":2}}

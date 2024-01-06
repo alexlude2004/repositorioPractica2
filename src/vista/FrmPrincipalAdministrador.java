@@ -8,12 +8,11 @@ package vista;
 public class FrmPrincipalAdministrador extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmPrincipalAdministrador2
+     * Creates new form FrmPrincipalAdministrador
      */
     public FrmPrincipalAdministrador() {
         initComponents();
         this.setLocationRelativeTo(null);
-//        jblUsuario.setText(new FrmCuenta().txtUsuario.getText());
     }
 
     /**
@@ -143,6 +142,11 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/malla.png"))); // NOI18N
         jButton6.setText(" Malla");
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -197,6 +201,10 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         new FrmCurso().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        new FrmMalla().setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,6 +230,14 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmPrincipalAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

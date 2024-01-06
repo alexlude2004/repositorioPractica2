@@ -1,11 +1,10 @@
-
-package controlador.TDA.listas.exception;
+package controlador.TDALista.exceptions;
 
 /**
  *
- * @author alexg
+ * @author Asus
  */
-public class VacioException extends Exception {
+public class VacioException extends Exception{
 
     /**
      * Creates a new instance of <code>VacioException</code> without detail
