@@ -75,6 +75,11 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\usuario_sesion.png"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jblUsuario">
               <Properties>
@@ -85,7 +90,7 @@
                   <Color blue="99" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Usuario Administrador"/>
+                <Property name="text" type="java.lang.String" value="Administrador"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -127,6 +132,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\materias.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value=" Administar Materias"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
@@ -150,6 +158,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\estudiantes.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Administrar Estudiantes&#xa;&#xa;"/>
                 <Property name="actionCommand" type="java.lang.String" value=" Administrar Estudiantes  "/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
@@ -171,6 +182,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\docentes.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value=" Administar Docentes"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
@@ -190,6 +204,9 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\periodoAcademico.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Periodo Academico"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
@@ -211,6 +228,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\matricula.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value=" Matricula"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
@@ -230,6 +250,9 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\malla.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Malla"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
@@ -253,6 +276,9 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\alexg\OneDrive\Desktop\Tercer Ciclo\PIS_Grupo3-master\src\icono\curso.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Curso"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
