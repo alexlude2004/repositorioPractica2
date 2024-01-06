@@ -46,8 +46,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5), "Administrador", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 30));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/usuario_sesion.png"))); // NOI18N
         jPanel3.add(jLabel1);
 
         jblUsuario.setFont(new java.awt.Font("Harlow Solid Italic", 1, 18)); // NOI18N
@@ -65,7 +63,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/materias.png"))); // NOI18N
         jButton1.setText(" Administar Materias");
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +79,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/estudiantes.png"))); // NOI18N
         jButton2.setText("Administrar Estudiantes\n\n");
         jButton2.setActionCommand(" Administrar Estudiantes  ");
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -97,7 +93,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(0, 153, 153));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/docentes.png"))); // NOI18N
         jButton3.setText(" Administar Docentes");
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -111,7 +106,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(0, 153, 153));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/periodoAcademico.png"))); // NOI18N
         jButton4.setText(" Periodo Academico");
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -125,7 +119,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(0, 153, 153));
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/matricula.png"))); // NOI18N
         jButton5.setText(" Matricula");
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -139,7 +132,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(0, 153, 153));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/malla.png"))); // NOI18N
         jButton6.setText(" Malla");
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +150,6 @@ public class FrmPrincipalAdministrador extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(0, 153, 153));
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono/curso.png"))); // NOI18N
         jButton7.setText(" Curso");
         jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton7.addActionListener(new java.awt.event.ActionListener() {

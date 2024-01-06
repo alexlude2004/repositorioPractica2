@@ -39,7 +39,7 @@ public class ModeloTablaCursoListas extends AbstractTableModel{
                 case 2:
                     return (curso != null) ? curso.getParalelo() : "";
                 case 3:
-                    return (curso != null) ? malla.toString() : "";
+                    return (curso != null) ? malla.toString() + " --- " + malla.getModalidad() : "";
                 default:
                     return null;
             }
@@ -64,6 +64,7 @@ public class ModeloTablaCursoListas extends AbstractTableModel{
                 return null;
         }
     }
+    
 
     /**
      * @return the cursos

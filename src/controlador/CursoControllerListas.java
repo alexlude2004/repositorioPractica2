@@ -138,7 +138,7 @@ public class CursoControllerListas extends DataAccessObject<Curso>{
         Curso[] c = lo.toArray();
         LinkedList<Curso> result = new LinkedList<>();
         for (int i = 0; i < lo.getSize(); i++) {
-            if (c[i].getCiclo().intValue() == ciclo.intValue()) {
+            if (c[i].getCiclo().equals(ciclo)) {
                 result.add(c[i]);
             }
         }

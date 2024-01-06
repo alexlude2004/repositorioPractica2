@@ -77,6 +77,7 @@ public class FrmMalla extends javax.swing.JFrame {
         txtCodResolucion.setEnabled(false);
         txtFechaCreacion.setText(new  SimpleDateFormat("dd / MM / yy").format(new Date()));
         txtBusquedaFecha.setText("dd / MM / yy");
+        cbxCriterio.setSelectedItem("NOMBRE");
         checkBoxVigente.setSelected(false);
         checkBoxDeshabilitado.setSelected(false);
         mcl.setMalla(null);

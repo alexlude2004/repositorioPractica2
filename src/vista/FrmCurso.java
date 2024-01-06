@@ -321,7 +321,7 @@ public class FrmCurso extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.ipadx = 300;
         gridBagConstraints.ipady = -200;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(jScrollPane2, gridBagConstraints);
@@ -424,7 +424,7 @@ public class FrmCurso extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 959, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -5,6 +5,7 @@ import controlador.TDA.listas.LinkedList;
 import controlador.pis.dao.DataAccessObject;
 import controlador.util.Utilidades;
 import java.lang.reflect.Field;
+import modelo.Curso;
 import modelo.Materia;
 
 /**
@@ -137,19 +138,19 @@ public class MateriaControllerListas extends DataAccessObject<Materia>{
         Materia[] m = lo.toArray();
         LinkedList<Materia> result = new LinkedList<>();
         for (int i = 0; i < lo.getSize(); i++) {
-            if (m[i].getNombre().toLowerCase().startsWith((String) clave)) {
+            if (m[i].getNombre().toLowerCase().startsWith(clave.toLowerCase())) {
                 result.add(m[i]);
             }
         }
         return result;
     }
     
-    public LinkedList<Materia> buscarCurso(LinkedList<Materia> lista, String text, Integer clave) throws Exception {
+    public LinkedList<Materia> buscarCurso(LinkedList<Materia> lista, String text, Curso curso) throws Exception {
         LinkedList<Materia> lo = this.quickSort(0, text, lista);
         Materia[] m = lo.toArray();
         LinkedList<Materia> result = new LinkedList<>();
         for (int i = 0; i < lo.getSize(); i++) {
-            if (m[i].getId_curso().intValue() == clave ) {
+            if (m[i].getId_curso().equals(curso.getId()) ) {
                 result.add(m[i]);
             }
         }

@@ -4,15 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/vista/FrmPrincipalAdministrador.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/modelo/Materia.java</file>
             <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/controlador/CursoControllerListas.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/controlador/MateriaControllerListas.java</file>
+            <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/vista/listas/tablas/ModeloTablaCursoListas.java</file>
             <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/vista/FrmCurso.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/modelo/Curso.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/vista/FrmPeriodoAcademico.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/vista/FrmMateria.java</file>
             <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/vista/FrmCuenta.java</file>
-            <file>file:/C:/Users/alexg/OneDrive/Desktop/Tercer%20Ciclo/PIS_Grupo3-master/src/vista/listas/util/UtilVista.java</file>
         </group>
     </open-files>
 </project-private>

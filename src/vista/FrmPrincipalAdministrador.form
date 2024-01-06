@@ -75,11 +75,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/usuario_sesion.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jblUsuario">
               <Properties>
@@ -132,9 +127,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/materias.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value=" Administar Materias"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
@@ -158,9 +150,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/estudiantes.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Administrar Estudiantes&#xa;&#xa;"/>
                 <Property name="actionCommand" type="java.lang.String" value=" Administrar Estudiantes  "/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
@@ -182,9 +171,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/docentes.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value=" Administar Docentes"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
@@ -204,9 +190,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/periodoAcademico.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Periodo Academico"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
@@ -228,9 +211,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/matricula.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value=" Matricula"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
@@ -250,9 +230,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/malla.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Malla"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
@@ -276,9 +253,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icono/curso.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" Curso"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>

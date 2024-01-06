@@ -33,7 +33,11 @@ public class FrmMateria extends javax.swing.JDialog {
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
         Integer ascdesc  = cbxAscDesc.getSelectedIndex();
         try {
-            mtml.setMaterias(mcl.quickSort(ascdesc, criterio, mtml.getMaterias()));
+            if (criterio.equalsIgnoreCase("nombre")) {
+                mtml.setMaterias(mcl.quickSort(ascdesc, criterio, mtml.getMaterias()));
+            } else if (criterio.equalsIgnoreCase("curso")) {
+                mtml.setMaterias(mcl.quickSort(ascdesc, "id_curso", mtml.getMaterias()));
+            }
             tblTabla.setModel(mtml);
             tblTabla.updateUI();
         } catch (Exception e) {
@@ -51,8 +55,7 @@ public class FrmMateria extends javax.swing.JDialog {
                 mtml.setMaterias(mcl.buscarNombre(mcl.getMaterias(), criterio, txtBusqueda.getText()));
             }
             else if (criterio.equalsIgnoreCase("curso")) {
-                Integer curso = Integer.parseInt(txtBusqueda.getText());
-                mtml.setMaterias(mcl.buscarCurso(mcl.getMaterias(), "id_curso", curso));
+                mtml.setMaterias(mcl.buscarCurso(mcl.getMaterias(), "id_curso", UtilVista.getComboCursos(cbxCursoB)));
             }
  
             tblTabla.setModel(mtml);
@@ -76,7 +79,11 @@ public class FrmMateria extends javax.swing.JDialog {
         mcl.setIndex(-1);
         try {
             UtilVista.cargarCurso(cbxCurso);
-            txtBusqueda.setVisible(true);            
+            UtilVista.cargarCurso(cbxCursoB);
+            txtBusqueda.setVisible(true);    
+            cbxCursoB.setVisible(false);
+            jblTexto.setVisible(true);
+            jblCiclo.setVisible(false);
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -184,12 +191,14 @@ public class FrmMateria extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTabla = new javax.swing.JTable();
         btnSeleccionar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
+        jblTexto = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         cbxCriterio = new javax.swing.JComboBox<>();
         cbxAscDesc = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
+        cbxCursoB = new javax.swing.JComboBox<>();
+        jblCiclo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de Materias");
@@ -334,14 +343,14 @@ public class FrmMateria extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnSeleccionar, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setText("Texto:");
+        jblTexto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jblTexto.setText("Texto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel5.add(jLabel8, gridBagConstraints);
+        jPanel5.add(jblTexto, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -403,6 +412,26 @@ public class FrmMateria extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel5.add(btnBuscar, gridBagConstraints);
 
+        cbxCursoB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxCursoB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCursoBActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel5.add(cbxCursoB, gridBagConstraints);
+
+        jblCiclo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jblCiclo.setText("Ciclo:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel5.add(jblCiclo, gridBagConstraints);
+
         jPanel1.add(jPanel5, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -433,6 +462,17 @@ public class FrmMateria extends javax.swing.JDialog {
 
     private void cbxCriterioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxCriterioItemStateChanged
         ordenar();
+        if (evt.getItem().toString().equalsIgnoreCase("NOMBRE")) {
+            txtBusqueda.setVisible(true);
+            cbxCursoB.setVisible(false);
+            jblTexto.setVisible(true);
+            jblCiclo.setVisible(false);
+        } else if (evt.getItem().toString().equalsIgnoreCase("CURSO")) {
+            txtBusqueda.setVisible(false);
+            cbxCursoB.setVisible(true);
+            jblTexto.setVisible(false);
+            jblCiclo.setVisible(true);            
+        }
     }//GEN-LAST:event_cbxCriterioItemStateChanged
 
     private void cbxAscDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxAscDescItemStateChanged
@@ -453,6 +493,10 @@ public class FrmMateria extends javax.swing.JDialog {
             
         }
     }//GEN-LAST:event_cbxCursoActionPerformed
+
+    private void cbxCursoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCursoBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCursoBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -528,16 +572,18 @@ public class FrmMateria extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbxAscDesc;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JComboBox<String> cbxCurso;
+    private javax.swing.JComboBox<String> cbxCursoB;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel jblCiclo;
+    private javax.swing.JLabel jblTexto;
     private javax.swing.JTable tblTabla;
     private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtNombre;
